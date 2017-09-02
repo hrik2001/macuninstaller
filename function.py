@@ -1,6 +1,7 @@
 import os
 import re
 import plistlib
+from subprocess import *
 
 __author__ = "Shatabarto \"Rik\" Bhattacharya "
 __doc__ = '''
@@ -23,13 +24,45 @@ def read_plist(directory):
 	bundle_name = plistfile['CFBundleName']
 	return (bundle_identifier , bundle_name , bundle_signature)    #not in order :P
 
-def find_plist(app_dir):
-	''' This function returns a string which points to the file location of Info.plist '''
-	return app_dir + "/Contents/Info.plist"
+
+######################################Functions That arent much important###########################################
+                                                                                                                   #
+def find_plist(app_dir):                                                                                           #
+	''' This function returns a string which points to the file location of Info.plist '''                         #
+	return app_dir + "/Contents/Info.plist"                                                                        #
+                                                                                                                   #
+                                                                                                                   #
+                                                                                                                   #
+def find_user():                                                                                                   #
+	''' This function returns the username of the user, so that we can search user's directory '''                 #
+	output = str(check_output(["whoami"]))                                                                         #
+	return output[2:len(output)-3]                                                                                 #
+####################################################################################################################
 
 
-#for root , dirs , files in os.walk("/"):
-	#pass
+
+#
+#Here comes some legit functions
+#
+
+
+
+
+def dividing_BundleIdentifier(the_identifier):
+	return the_identifier.split(".")
+
+	
+def quick_scan(app_path, username , arguements):
+	#argurments = [ bundle_identifier , bundle_name , bundle_signature]
+	log=[]
+	for root , dirs , files in os.walk("/Users/"+username+"/Library/Application Support/"):
+		pass	
+
+
+
+
+def full_scan(app_path, username , arguements):
+	pass
 
 
 
