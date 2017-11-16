@@ -1,6 +1,7 @@
 import os
 import plistlib
 from subprocess import *
+from pprint import pprint
 
 __author__ = "Shatabarto \"Rik\" Bhattacharya "
 __doc__ = '''
@@ -35,29 +36,51 @@ def find_user():
 
 
 
-
-#
-#Here comes some legit functions
-#
-
-
-
-
 def dividing_BundleIdentifier(the_identifier):
 	return the_identifier.split(".")
 
 	
-def quick_scan(app_path, username , arguements):
+def quick_scan(username , arguements):
 	#argurments = [ bundle_identifier , bundle_name , bundle_signature]
-	log=[]
-	for root , dirs , files in os.walk("/Users/"+username+"/Library/Application Support/"):
-		pass	
+	file_list=[]
+	dir_list=[]
+	for pwd , subdir , files in os.walk("/Users/"+username+"/Library/Application Support/"):
+		for things in files:
+			for stuff in arguements:
+				if stuff.lower() in things:
+					file_list.append(pwd+"/"+things)
+		for stuff in arguements:
+			if stuff.lower() in pwd.split("/")[len(pwd.split("/"))-1]:
+				dir_list.append(pwd)
+
+	return dir_list , file_list
 
 
 
 
-def full_scan(app_path, username , arguements):
-	pass
+def full_scan(username , arguements):
+#argurments = [ bundle_identifier , bundle_name , bundle_signature]
+	file_list=[]
+	dir_list=[]
+	for pwd , subdir , files in os.walk("/"):
+		for things in files:
+			for stuff in arguements:
+				if stuff.lower() in things:
+					file_list.append(pwd+"/"+things)
+		for stuff in arguements:
+			if stuff.lower() in pwd.split("/")[len(pwd.split("/"))-1]:
+				dir_list.append(pwd)
 
-
+	return dir_list , file_list
+	
+def uninstaller(app_path , parameter):
+	plist_path = find_plist(app_path)
+	user = find_user()
+	bundle_identifier , bundle_name , bundle_signature = read_plist(plist_path)
+	if parameter == "f":
+		pprint(full_scan(user,[bundle_identifier , bundle_name , bundle_signature]))
+	elif parameter == "q":
+		pprint(quick_scan(user,[bundle_identifier , bundle_name , bundle_signature]))
+	else :
+		print "enter a parameter"
 
