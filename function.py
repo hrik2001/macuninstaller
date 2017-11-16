@@ -1,5 +1,4 @@
 import os
-import re
 import plistlib
 from subprocess import *
 
@@ -25,19 +24,15 @@ def read_plist(directory):
 	return (bundle_identifier , bundle_name , bundle_signature)    #not in order :P
 
 
-######################################Functions That arent much important###########################################
-                                                                                                                   #
-def find_plist(app_dir):                                                                                           #
-	''' This function returns a string which points to the file location of Info.plist '''                         #
-	return app_dir + "/Contents/Info.plist"                                                                        #
-                                                                                                                   #
-                                                                                                                   #
-                                                                                                                   #
-def find_user():                                                                                                   #
-	''' This function returns the username of the user, so that we can search user's directory '''                 #
-	output = str(check_output(["whoami"]))                                                                         #
-	return output[2:len(output)-3]                                                                                 #
-####################################################################################################################
+def find_plist(app_dir):                                                                                           
+	''' This function returns a string which points to the file location of Info.plist '''                         
+	return app_dir + "/Contents/Info.plist"
+
+def find_user():
+	''' This function returns the username of the user, so that we can search user's directory '''
+	output = str(check_output(["whoami"]))
+	return output[2:len(output)-3]
+
 
 
 
