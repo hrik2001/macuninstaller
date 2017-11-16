@@ -32,7 +32,7 @@ def find_plist(app_dir):
 def find_user():
 	''' This function returns the username of the user, so that we can search user's directory '''
 	output = str(check_output(["whoami"]))
-	return output[2:len(output)-3]
+	return output[0:len(output)-1]
 
 
 
