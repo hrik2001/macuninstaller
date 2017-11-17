@@ -40,7 +40,14 @@ def dividing_BundleIdentifier(the_identifier):
 	return the_identifier.split(".")[len(the_identifier.split("."))-1]
 
 
-
+def important_paths():
+	paths = []
+	paths.append("/Users/"+find_user()+"/Library")
+	paths.append("/Library")
+	paths.append("/var")
+	paths.append("/System/Library")
+	paths.append("/Applications")
+	return paths
 	
 def finder(path , hints):
 	collection_file = []
@@ -59,5 +66,33 @@ def finder(path , hints):
 	return collection_file , collection_folder
 
 
+def scan(path_to_app):
+	bundle_identifier , bundle_name , bundle_signature = read_plist(find_plist(path_to_app))
+	hints = [dividing_BundleIdentifier(bundle_identifier) , bundle_name , bundle_signature]
 
+	file_list = []
+	folder_list = []
+
+	for every_path in important_paths():
+		fil , fol = finder(every_path , hints)
+		for every_fil in fil :
+			file_list.append(every_fil)
+		for every_fol in fol :
+			folder_list.append(every_fol)
+	return file_list , folder_list
+
+def custom_scan(path_to_app , custom_paths):
+	bundle_identifier , bundle_name , bundle_signature = read_plist(find_plist(path_to_app))
+	hints = custom_paths
+
+	file_list = []
+	folder_list = []
+
+	for every_path in important_paths():
+		fil , fol = finder(every_path , hints)
+		for every_fil in fil :
+			file_list.append(every_fil)
+		for every_fol in fol :
+			folder_list.append(every_fol)
+	return file_list , folder_list
 
