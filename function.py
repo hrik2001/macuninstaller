@@ -83,12 +83,12 @@ def scan(path_to_app):
 
 def custom_scan(path_to_app , custom_paths):
 	bundle_identifier , bundle_name , bundle_signature = read_plist(find_plist(path_to_app))
-	hints = custom_paths
+	hints = [dividing_BundleIdentifier(bundle_identifier) , bundle_name , bundle_signature]
 
 	file_list = []
 	folder_list = []
 
-	for every_path in important_paths():
+	for every_path in custom_paths:
 		fil , fol = finder(every_path , hints)
 		for every_fil in fil :
 			file_list.append(every_fil)
