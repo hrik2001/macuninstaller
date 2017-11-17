@@ -37,50 +37,27 @@ def find_user():
 
 
 def dividing_BundleIdentifier(the_identifier):
-	return the_identifier.split(".")
+	return the_identifier.split(".")[len(the_identifier.split("."))-1]
+
+
 
 	
-def quick_scan(username , arguements):
-	#argurments = [ bundle_identifier , bundle_name , bundle_signature]
-	file_list=[]
-	dir_list=[]
-	for pwd , subdir , files in os.walk("/Users/"+username+"/Library/Application Support/"):
-		for things in files:
-			for stuff in arguements:
-				if stuff.lower() in things:
-					file_list.append(pwd+"/"+things)
-		for stuff in arguements:
-			if stuff.lower() in pwd.split("/")[len(pwd.split("/"))-1]:
-				dir_list.append(pwd)
+def finder(path , hints):
+	collection_file = []
+	collection_folder = []
+	for pwd , subdir , files in os.walk(path):
+		for file in files :
+			for clue in hints:
+				if clue.lower() in file.lower():
+					#print pwd+"/"+file
+					collection_file.append(pwd+"/"+file)
+		for folder in subdir:
+			for clue in hints:
+				if clue.lower() in folder.lower():
+					#print pwd+"/"+folder
+					collection_folder.append(pwd+"/"+folder)
+	return collection_file , collection_folder
 
-	return dir_list , file_list
 
 
-
-
-def full_scan(username , arguements):
-#argurments = [ bundle_identifier , bundle_name , bundle_signature]
-	file_list=[]
-	dir_list=[]
-	for pwd , subdir , files in os.walk("/"):
-		for things in files:
-			for stuff in arguements:
-				if stuff.lower() in things:
-					file_list.append(pwd+"/"+things)
-		for stuff in arguements:
-			if stuff.lower() in pwd.split("/")[len(pwd.split("/"))-1]:
-				dir_list.append(pwd)
-
-	return dir_list , file_list
-	
-def uninstaller(app_path , parameter):
-	plist_path = find_plist(app_path)
-	user = find_user()
-	bundle_identifier , bundle_name , bundle_signature = read_plist(plist_path)
-	if parameter == "f":
-		pprint(full_scan(user,[bundle_identifier , bundle_name , bundle_signature]))
-	elif parameter == "q":
-		pprint(quick_scan(user,[bundle_identifier , bundle_name , bundle_signature]))
-	else :
-		print "enter a parameter"
 
