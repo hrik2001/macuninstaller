@@ -1,7 +1,7 @@
 import os
 import plistlib
 from subprocess import *
-from pprint import pprint
+#from pprint import pprint
 
 __author__ = "Shatabarto \"Rik\" Bhattacharya "
 __doc__ = '''
