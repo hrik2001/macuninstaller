@@ -34,5 +34,7 @@ else:
 	print
 	print
 	print("\033[1m\033[35mFolders:\033[0m")
+	print
+	print
 	pprint(folders)
 
