@@ -4,16 +4,10 @@ from subprocess import *
 #from pprint import pprint
 
 __author__ = "Shatabarto \"Rik\" Bhattacharya "
-__doc__ = '''
-Free and good uninstallers for macOS are not available, so I decided to make my own. This file serves as a library and stores some necessary functions. A combination of these functions will be used to code the uninstaller
-
-Open Source For Life
-Free stuff for life
-
-I have nothing else to say
 
 '''
-
+Contains useful functions for the uninstallation process
+'''
 
 
 def read_plist(directory):
@@ -37,19 +31,21 @@ def find_user():
 
 
 def dividing_BundleIdentifier(the_identifier):
+	''' This function returns the useful bit of information from the bundleidentifier, if the bundleidentifier is zz.yyy.xxx, xxx will be returned '''
 	return the_identifier.split(".")[len(the_identifier.split("."))-1]
 
 
 def important_paths():
+	''' List of all the important paths that the program should look into to find the related files '''
 	paths = []
 	paths.append("/Users/"+find_user()+"/Library")
 	paths.append("/Library")
 	paths.append("/var")
 	paths.append("/System/Library")
-	paths.append("/Applications")
 	return paths
 	
 def finder(path , hints):
+	''' This function asks for a path as a parameter, this parameter tells it where to search, another parameter is a list of strings, it will be used to match strings of file/folder names '''
 	collection_file = []
 	collection_folder = []
 	for pwd , subdir , files in os.walk(path):
@@ -67,6 +63,7 @@ def finder(path , hints):
 
 
 def scan(path_to_app):
+	''' Default scan '''
 	bundle_identifier , bundle_name , bundle_signature = read_plist(find_plist(path_to_app))
 	hints = [dividing_BundleIdentifier(bundle_identifier) , bundle_name , bundle_signature]
 
@@ -82,6 +79,7 @@ def scan(path_to_app):
 	return file_list , folder_list
 
 def custom_scan(path_to_app , custom_paths):
+	''' Custom scan '''
 	bundle_identifier , bundle_name , bundle_signature = read_plist(find_plist(path_to_app))
 	hints = [dividing_BundleIdentifier(bundle_identifier) , bundle_name , bundle_signature]
 
