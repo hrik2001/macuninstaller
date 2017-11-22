@@ -4,8 +4,11 @@ It is an app uninstaller for macOS which is being developed by Shatabarto "Rik" 
 
 Usage
 -----
-The function `scan(path_to_app)` will scan an app and return 2 arrays of strings which will contain all the files and folders related to that app you specified. The `scan` function will only look for related files in some special locations where there is a high chance of finding files related to an app.
-You can also do a custom scan with the function `custom_scan(path_to_app, custom_paths)` . The custom path variable is an array of strings which will contain all the custom paths you want to check into to find files affiliated with your app.
+So after downloading this all you have to do is </br>
+`python cli.py -p /path/to/app` </br>
+and it will output the possible files and folders that are related to the app you just specified. </br>
+You can also do a custom scan where you have to type the path of the app and the directories in which you want to search for files affiliated with the app. </br>
+`python cli.py -p /path/to/app -c /path1/ /path2/ /path3/`
 
 Help Needed
 -----------
