@@ -1,6 +1,6 @@
 from function import *
 from argparse import ArgumentParser
-from pprint import pprint
+
 
 ########### Arguements of the program ##############
 parser = ArgumentParser()
@@ -10,31 +10,24 @@ args = parser.parse_args()
 #####################################################
 
 if not args.custom:
-	print "macuninstaller is going to do a \033[1m\033[31mUsual Scan\033[0m"
+	print "\n"
+	print "macuninstaller is going to do an \033[1m\033[31mUsual Scan\033[0m"
 	files , folders = scan(args.path)
-	print
-	print
+	print "\n"*2
 	print "\033[1m\033[33mFiles:\033[0m"
-	print
-	print
-	pprint(files)
-	print
-	print
+	print "\n"*2
+	printer(files)
+	print "\n"*2
 	print("\033[1m\033[35mFolders:\033[0m")
-	pprint(folders)
+	printer(folders)
 else:
+	print "\n"
 	print "macuninstaller is going to do a \033[1m\033[31mCustom Scan\033[0m"
-	print
-	print
+	print "\n"*2
 	files , folders = custom_scan(args.path , args.custom)
 	print "\033[1m\033[33mFiles:\033[0m"
-	print
-	print
-	pprint(files)
-	print
-	print
+	printer(files)
+	print "\n"*2
 	print("\033[1m\033[35mFolders:\033[0m")
-	print
-	print
-	pprint(folders)
+	printer(folders)
 

@@ -6,6 +6,7 @@ import queue
 #from pprint import pprint
 
 __author__ = "Rik \"Rik\" Bhattacharya "
+__version__ = 0.01
 
 '''
 Contains useful functions for the uninstallation process
@@ -97,6 +98,9 @@ def custom_scan(path_to_app , custom_paths):
 	return file_list , folder_list
 
 ######Threading bullshit##########
+#Doesnt improve speed for me tho
+#If you feel like using this then do it lol
+
 def dummy_finder(path , hints, q):
 	q.put(finder(path, hints))
 
@@ -112,3 +116,6 @@ def thread_scan(paths , hints):
 	return fil , fol
 ##################################
 
+def printer(the_list):
+	for things in the_list:
+		print things
