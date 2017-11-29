@@ -1,6 +1,8 @@
 import os
 import plistlib
 from subprocess import *
+from threading import Thread 
+import queue
 #from pprint import pprint
 
 __author__ = "Rik \"Rik\" Bhattacharya "
@@ -93,4 +95,20 @@ def custom_scan(path_to_app , custom_paths):
 		for every_fol in fol :
 			folder_list.append(every_fol)
 	return file_list , folder_list
+
+######Threading bullshit##########
+def dummy_finder(path , hints, q):
+	q.put(finder(path, hints))
+
+def thread_scan(paths , hints):
+	q = queue.Queue()
+	fil = []
+	fol = []
+	for path in paths:
+		Thread(target=dummy_finder, args=(path, hints, q)).start()
+		file_list , folder_list = q.get()
+		fil.append(file_list)
+		fol.append(folder_list)
+	return fil , fol
+##################################
 
