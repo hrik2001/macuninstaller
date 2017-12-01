@@ -12,7 +12,7 @@ args = parser.parse_args()
 if not args.custom:
 	print "\n"
 	print "macuninstaller is going to do an \033[1m\033[31mUsual Scan\033[0m"
-	files , folders = scan(args.path)
+	files , folders = thread_scanner(args.path)
 	print "\n"*2
 	print "\033[1m\033[33mFiles:\033[0m"
 	print "\n"*2
@@ -24,7 +24,7 @@ else:
 	print "\n"
 	print "macuninstaller is going to do a \033[1m\033[31mCustom Scan\033[0m"
 	print "\n"*2
-	files , folders = custom_scan(args.path , args.custom)
+	files , folders = thread_custom_scanner(args.path , args.custom)
 	print "\033[1m\033[33mFiles:\033[0m"
 	printer(files)
 	print "\n"*2
