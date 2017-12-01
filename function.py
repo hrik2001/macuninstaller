@@ -98,22 +98,34 @@ def custom_scan(path_to_app , custom_paths):
 	return file_list , folder_list
 
 ######Threading bullshit##########
-#Doesnt improve speed for me tho
-#If you feel like using this then do it lol
+#havent benchmarked this, but these might be better
 
 def dummy_finder(path , hints, q):
 	q.put(finder(path, hints))
 
-def thread_scan(paths , hints):
+def thread_finder(paths , hints):
 	q = queue.Queue()
 	fil = []
 	fol = []
 	for path in paths:
 		Thread(target=dummy_finder, args=(path, hints, q)).start()
 		file_list , folder_list = q.get()
-		fil.append(file_list)
-		fol.append(folder_list)
+		#fil.append(file_list)
+		#fol.append(folder_list)
+		for thing in file_list:
+			fil.append(thing)
+		for thingy in folder_list:
+			fol.append(thingy)
 	return fil , fol
+def thread_scanner(path_to_app):
+	bundle_identifier , bundle_name , bundle_signature = read_plist(find_plist(path_to_app))
+	hints = [dividing_BundleIdentifier(bundle_identifier) , bundle_name , bundle_signature]
+	return thread_finder(important_paths(), hints)
+
+def thread_custom_scanner(path_to_app , custom_paths):
+	bundle_identifier , bundle_name , bundle_signature = read_plist(find_plist(path_to_app))
+	hints = [dividing_BundleIdentifier(bundle_identifier) , bundle_name , bundle_signature]
+	return thread_finder(custom_paths , hints)	
 ##################################
 
 def printer(the_list):
