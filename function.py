@@ -7,7 +7,7 @@ import queue
 
 __author__ = "Shatabarto \"Rik\" Bhattacharya "
 __version__ = 0.01
-__doc__ = "Copyright hrik2001 2017 Shatabarto \"Rik\" Bhattacharya.\nA command-line program to help you find those hidden files that stay here even when the apps get deleted"
+__doc__ = "macuninstaller "+str(__version__)+"\n"+"Copyright hrik2001 2017 Shatabarto \"Rik\" Bhattacharya.\nA command-line program to help you find those hidden files that stay here even when the apps get deleted"
 
 '''
 Contains useful functions for the uninstallation process
