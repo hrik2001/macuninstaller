@@ -5,7 +5,7 @@ macuninstaller is python script which is apparently only available in CLI versio
 Usage
 -----
 First download this repository. </br>
-`git clone https://github.com/hrik2001/macuninstaller`
+`git clone https://github.com/hrik2001/macuninstaller` </br>
 So after downloading the repository, go inside the folder and all you have to do is </br>
 `python cli.py -p /path/to/app` </br>
 and it will output the possible files and folders that are related to the app you just specified. </br>
