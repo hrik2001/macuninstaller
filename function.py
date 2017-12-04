@@ -131,3 +131,18 @@ def thread_custom_scanner(path_to_app , custom_paths):
 def printer(the_list):
 	for things in the_list:
 		print things
+
+def cleanup(the_list):
+	cleaned_list = []
+	for elements in the_list:
+		if elements not in cleaned_list:
+			cleaned_list.append(elements)
+	return cleaned_list
+
+def file_in_same_folder_checker(file_list , folder_list):
+	cleaned_file_list = []
+	for stuff in file_list:
+		for elements in folder_list:
+			if elements not in stuff:
+				cleaned_file_list.append(stuff)
+	return file_list , folder_list
