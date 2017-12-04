@@ -15,7 +15,6 @@ if not args.custom:
 	files , folders = thread_scanner(args.path)
 	files = cleanup(files)
 	folders = cleanup(folders)
-	files , folders = file_in_same_folder_checker(files , folders)
 	print "\n"*2
 	print "\033[1m\033[33mFiles:\033[0m"
 	print "\n"*2
@@ -30,7 +29,6 @@ else:
 	files , folders = thread_custom_scanner(args.path , args.custom)
 	files = cleanup(files)
 	folders = cleanup(folders)
-	files , folders = file_in_same_folder_checker(files , folders)
 	print "\033[1m\033[33mFiles:\033[0m"
 	printer(files)
 	print "\n"*2
