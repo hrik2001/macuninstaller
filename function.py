@@ -1,7 +1,7 @@
 import os
 import plistlib
 from subprocess import *
-from threading import Thread 
+from threading import Thread
 import queue
 #from pprint import pprint
 
@@ -23,8 +23,8 @@ def read_plist(directory):
 	return (bundle_identifier , bundle_name , bundle_signature)    #not in order :P
 
 
-def find_plist(app_dir):                                                                                           
-	''' This function returns a string which points to the file location of Info.plist '''                         
+def find_plist(app_dir):
+	''' This function returns a string which points to the file location of Info.plist '''
 	return app_dir + "/Contents/Info.plist"
 
 def find_user():
@@ -47,7 +47,7 @@ def important_paths():
 	paths.append("/var")
 	paths.append("/System/Library")
 	return paths
-	
+
 def finder(path , hints):
 	''' This function asks for a path as a parameter, this parameter tells it where to search, another parameter is a list of strings, it will be used to match strings of file/folder names '''
 	collection_file = []
@@ -99,7 +99,7 @@ def custom_scan(path_to_app , custom_paths):
 	return file_list , folder_list
 
 ######Threading bullshit##########
-#havent benchmarked this, but these might be better
+#benchedmark this and its good af
 
 def dummy_finder(path , hints, q):
 	q.put(finder(path, hints))
@@ -126,7 +126,7 @@ def thread_scanner(path_to_app):
 def thread_custom_scanner(path_to_app , custom_paths):
 	bundle_identifier , bundle_name , bundle_signature = read_plist(find_plist(path_to_app))
 	hints = [dividing_BundleIdentifier(bundle_identifier) , bundle_name , bundle_signature]
-	return thread_finder(custom_paths , hints)	
+	return thread_finder(custom_paths , hints)
 ##################################
 
 def printer(the_list):
