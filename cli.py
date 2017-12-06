@@ -19,7 +19,6 @@ if not args.custom:
 	folders = cleanup(folders)
 	print "\n"*2
 	print "\033[1m\033[33mFiles:\033[0m"
-	print "\n"*2
 	printer(files)
 	print "\n"*2
 	print("\033[1m\033[35mFolders:\033[0m")
@@ -37,4 +36,3 @@ else:
 	print "\n"*2
 	print("\033[1m\033[35mFolders:\033[0m")
 	printer(folders)
-
