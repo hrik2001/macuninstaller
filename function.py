@@ -18,9 +18,9 @@ def read_plist(directory):
 	''' This function returns a tuple which contains (bundle_identifier , bundle_name , bundle_signature) of an app '''
 	plistfile = plistlib.readPlist(directory)
 	bundle_identifier = plistfile['CFBundleIdentifier']
-	bundle_signature = plistfile['CFBundleSignature']
+	#bundle_signature = plistfile['CFBundleSignature']
 	bundle_name = plistfile['CFBundleName']
-	return (bundle_identifier , bundle_name , bundle_signature)    #not in order :P
+	return (bundle_identifier , bundle_name) # , bundle_signature)    #not in order :P
 
 
 def find_plist(app_dir):
@@ -68,8 +68,8 @@ def finder(path , hints):
 
 def scan(path_to_app):
 	''' Default scan '''
-	bundle_identifier , bundle_name , bundle_signature = read_plist(find_plist(path_to_app))
-	hints = [dividing_BundleIdentifier(bundle_identifier) , bundle_name , bundle_signature]
+	bundle_identifier , bundle_name  = read_plist(find_plist(path_to_app))
+	hints = [dividing_BundleIdentifier(bundle_identifier) , bundle_name ]
 
 	file_list = []
 	folder_list = []
@@ -84,8 +84,8 @@ def scan(path_to_app):
 
 def custom_scan(path_to_app , custom_paths):
 	''' Custom scan '''
-	bundle_identifier , bundle_name , bundle_signature = read_plist(find_plist(path_to_app))
-	hints = [dividing_BundleIdentifier(bundle_identifier) , bundle_name , bundle_signature]
+	bundle_identifier , bundle_name = read_plist(find_plist(path_to_app))
+	hints = [dividing_BundleIdentifier(bundle_identifier) , bundle_name ]
 
 	file_list = []
 	folder_list = []
@@ -119,13 +119,13 @@ def thread_finder(paths , hints):
 			fol.append(thingy)
 	return fil , fol
 def thread_scanner(path_to_app):
-	bundle_identifier , bundle_name , bundle_signature = read_plist(find_plist(path_to_app))
-	hints = [dividing_BundleIdentifier(bundle_identifier) , bundle_name , bundle_signature]
+	bundle_identifier , bundle_name  = read_plist(find_plist(path_to_app))
+	hints = [dividing_BundleIdentifier(bundle_identifier) , bundle_name ]
 	return thread_finder(important_paths(), hints)
 
 def thread_custom_scanner(path_to_app , custom_paths):
-	bundle_identifier , bundle_name , bundle_signature = read_plist(find_plist(path_to_app))
-	hints = [dividing_BundleIdentifier(bundle_identifier) , bundle_name , bundle_signature]
+	bundle_identifier , bundle_name  = read_plist(find_plist(path_to_app))
+	hints = [dividing_BundleIdentifier(bundle_identifier) , bundle_name ]
 	return thread_finder(custom_paths , hints)
 ##################################
 
