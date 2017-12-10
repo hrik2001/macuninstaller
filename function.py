@@ -3,6 +3,7 @@ import plistlib
 from subprocess import *
 from threading import Thread
 import queue
+from sys import exit
 #from pprint import pprint
 
 __author__ = "Rik \"Rik\" Bhattacharya "
@@ -16,16 +17,24 @@ Contains useful functions for the uninstallation process
 
 def read_plist(directory):
 	''' This function returns a tuple which contains (bundle_identifier , bundle_name , bundle_signature) of an app '''
-	plistfile = plistlib.readPlist(directory)
-	bundle_identifier = plistfile['CFBundleIdentifier']
-	#bundle_signature = plistfile['CFBundleSignature']
-	bundle_name = plistfile['CFBundleName']
-	return (bundle_identifier , bundle_name) # , bundle_signature)    #not in order :P
+	if os.path.isfile(directory):
+		plistfile = plistlib.readPlist(directory)
+		bundle_identifier = plistfile['CFBundleIdentifier']
+		#bundle_signature = plistfile['CFBundleSignature']
+		bundle_name = plistfile['CFBundleName']
+		return (bundle_identifier , bundle_name) # , bundle_signature)    #not in order :P
+	else:
+		a = directory.split("/")[len(directory.split("/"))-2]
+		a = a[0:len(a)-4]
+		return a , a
 
 
 def find_plist(app_dir):
 	''' This function returns a string which points to the file location of Info.plist '''
-	return app_dir + "/Contents/Info.plist"
+	if os.path.isdir(app_dir):
+		return app_dir + "/Contents/Info.plist"
+	else:
+		exit("\033[1m\033[31mError:\033[0m Application doesn't exist.\nmacuninstaller will quit now")
 
 def find_user():
 	''' This function returns the username of the user, so that we can search user's directory '''
