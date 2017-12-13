@@ -7,7 +7,7 @@ from sys import exit
 #from pprint import pprint
 
 __author__ = "Rik \"Rik\" Bhattacharya "
-__version__ = 0.1
+__version__ = 0.2
 __doc__ = "macuninstaller "+str(__version__)+"\n"+"Copyright hrik2001 2017 Rik \"Rik\" Bhattacharya.\nA command-line program to help you find those hidden files that stay here even when the apps get deleted"
 
 '''
