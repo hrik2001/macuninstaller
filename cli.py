@@ -12,6 +12,8 @@ args = parser.parse_args()
 
 if not args.custom:
 	print doc
+	print '\xf0\x9f\x98\x80 ' + "represents recommended file/folder"
+	print '\xf0\x9f\xa4\xa8 ' + "represents not recommended file/folder"
 	print "\n"
 	print "macuninstaller is going to do an \033[1m\033[31mUsual Scan\033[0m"
 	files , folders = thread_scanner(args.path)
@@ -19,12 +21,14 @@ if not args.custom:
 	folders = cleanup(folders)
 	print "\n"*2
 	print "\033[1m\033[33mFiles:\033[0m"
-	printer(files)
+	safe_printer(files)
 	print "\n"*2
 	print("\033[1m\033[35mFolders:\033[0m")
-	printer(folders)
+	safe_printer(folders)
 else:
 	print doc
+	print '\xf0\x9f\x98\x80 ' + "represents recommended file/folder"
+	print '\xf0\x9f\xa4\xa8 ' + "represents not recommended file/folder"
 	print "\n"
 	print "macuninstaller is going to do a \033[1m\033[31mCustom Scan\033[0m"
 	print "\n"*2
@@ -32,7 +36,7 @@ else:
 	files = cleanup(files)
 	folders = cleanup(folders)
 	print "\033[1m\033[33mFiles:\033[0m"
-	printer(files)
+	safe_printer(files)
 	print "\n"*2
 	print("\033[1m\033[35mFolders:\033[0m")
-	printer(folders)
+	safe_printer(folders)
