@@ -142,6 +142,7 @@ def thread_custom_scanner(path_to_app , custom_paths):
 ##################################
 
 def printer(the_list):
+	#old version used this function
 	for things in the_list:
 		print things
 
@@ -154,5 +155,32 @@ def cleanup(the_list):
 			cleaned_list.append(elements)
 	return cleaned_list
 
+def probably_wrong_paths():
+	#a function to tell the inexperienced user what could be the wrong directory. But remember paths containing these could be right too. :)
+	signs = []
+	signs.append("/Library/Java")
+	signs.append("/Library/Python")
+	signs.append("/Library/Perl")
+	signs.append("/Library/Ruby")
+	signs.append("/System/Library/Frameworks/")
+	return signs
+def safe_printer(the_list):
+	def checker(element):
+		a = 0
+		for thing in probably_wrong_paths():
+			if thing in element:
+				a+=1
+		return not a
+	for stuff in the_list:
+		if checker(stuff):
+			print '\xf0\x9f\x98\x80 '+stuff #smiley face
+		else:
+			print '\xf0\x9f\xa4\xa8 '+stuff #confused face
+
+
+
+
+
 #This is how a 16 year old codes
 #Sorry if you find this bad
+#
