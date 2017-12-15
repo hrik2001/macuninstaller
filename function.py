@@ -17,6 +17,8 @@ Contains useful functions for the uninstallation process
 
 def read_plist(directory):
 	''' This function returns a tuple which contains (bundle_identifier , bundle_name , bundle_signature) of an app '''
+	#This function takes the arguement of the PATH where the Info.plist is stored. Then it reads the CFBundleName and CFBundleIdentifier
+	#And returns them. If Info.plist is not found (which will never happen as far as ik), then it will just return the name of the app.
 	if os.path.isfile(directory):
 		plistfile = plistlib.readPlist(directory)
 		bundle_identifier = plistfile['CFBundleIdentifier']
@@ -30,6 +32,7 @@ def read_plist(directory):
 
 
 def find_plist(app_dir):
+	#Just adds Info.plist to the app directory
 	''' This function returns a string which points to the file location of Info.plist '''
 	if os.path.isdir(app_dir):
 		return app_dir + "/Contents/Info.plist"
@@ -76,7 +79,7 @@ def finder(path , hints):
 
 
 def scan(path_to_app):
-	''' Default scan '''
+	''' Default scan, searches into specific paths '''
 	bundle_identifier , bundle_name  = read_plist(find_plist(path_to_app))
 	hints = [dividing_BundleIdentifier(bundle_identifier) , bundle_name ]
 
@@ -92,7 +95,7 @@ def scan(path_to_app):
 	return file_list , folder_list
 
 def custom_scan(path_to_app , custom_paths):
-	''' Custom scan '''
+	''' Custom scan, searches into the paths you specify '''
 	bundle_identifier , bundle_name = read_plist(find_plist(path_to_app))
 	hints = [dividing_BundleIdentifier(bundle_identifier) , bundle_name ]
 
@@ -108,7 +111,7 @@ def custom_scan(path_to_app , custom_paths):
 	return file_list , folder_list
 
 ######Threading bullshit##########
-#benchedmark this and its good af
+#benchmarked this and its good af
 
 def dummy_finder(path , hints, q):
 	q.put(finder(path, hints))
@@ -143,16 +146,13 @@ def printer(the_list):
 		print things
 
 def cleanup(the_list):
+	#sometimes the file_list and the folder_list will contain the same files or folders (because of the loop)
+	#so this just cleans it up
 	cleaned_list = []
 	for elements in the_list:
 		if elements not in cleaned_list:
 			cleaned_list.append(elements)
 	return cleaned_list
 
-#def file_in_same_folder_checker(file_list , folder_list):
-#	cleaned_file_list = []
-#	for stuff in file_list:
-#		for elements in folder_list:
-#			if elements not in stuff:
-#				cleaned_file_list.append(stuff)
-#	return file_list , folder_list
+#This is how a 16 year old codes
+#Sorry if you find this bad
