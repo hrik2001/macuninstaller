@@ -22,4 +22,4 @@ You can also do a custom scan where you have to type the path of the app and the
 
 Contribution
 ------------
-[hexx112](https://www.reddit.com/user/hexx112)
+[hexx112](https://www.reddit.com/user/hexx112) for making the website which is accessible at [macuninstaller](https://hrik2001.github.io/macuninstaller)
