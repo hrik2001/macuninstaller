@@ -1,0 +1,39 @@
+@font-face{
+font-family: 'ost';
+src: url('fonts/ostrich-regular.ttf');
+}
+body {
+font-family: Segoe UI, Arial;
+position: absolute;
+top: 0;
+left: 0;
+background-color: #ededed;
+color: #282828;
+margin: 100;
+padding: 0;
+}
+h1, h2, h3, h4, #flag{
+color: #e84f4f;
+}
+code, a{
+background-color: #dddddd;
+transition: 0.5s;
+}
+button{
+border: 0;
+outline: 0;
+-webkit-appearance: none;
+-moz-appearance: none;
+box-sizing: border-box;
+padding: 12px;
+transition: 0.5s;
+border-radius: 2px;
+background-color: #dedede;
+color: inherit;
+}
+
+button:hover, code:hover{
+  color: #e84f4f;
+}
+
+#flag{font-size: 2rem;}
