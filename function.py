@@ -164,13 +164,18 @@ def probably_wrong_paths():
 	signs.append("/Library/Ruby")
 	signs.append("/System/Library/Frameworks/")
 	return signs
+
+def checker(element):
+	#checks if the file is recommended or not
+	a = 0
+	for thing in probably_wrong_paths():
+		if thing in element:
+			a+=1
+	return not a
+
+
 def safe_printer(the_list):
-	def checker(element):
-		a = 0
-		for thing in probably_wrong_paths():
-			if thing in element:
-				a+=1
-		return not a
+	#prints with emojis for the user
 	for stuff in the_list:
 		if checker(stuff):
 			print '\xf0\x9f\x98\x80 '+stuff #smiley face
