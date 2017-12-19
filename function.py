@@ -5,6 +5,7 @@ from threading import Thread
 import queue
 from sys import exit
 #from pprint import pprint
+import tkinter as tk
 
 __author__ = "Shatabarto \"Rik\" Bhattacharya "
 __version__ = 0.2
@@ -183,6 +184,33 @@ def safe_printer(the_list):
 			print '\xf0\x9f\xa4\xa8 '+stuff #confused face
 
 
+def displayer(the_list):
+	root = tk.Tk()
+	sb = tk.Scrollbar(orient="vertical")
+	text = tk.Text(root, width=40, height=20, yscrollcommand=sb.set)
+	sb.config(command=text.yview)
+	sb.pack(side="right",fill="y")
+	text.pack(side="top",fill="both",expand=True)
+	a = [] #contains the boolean value (1/0) , whether the file has been selected or not
+
+
+	for count in range(len(the_list)):
+		a.append(tk.Variable())
+
+		a[count].set(0) #the checkbox is unticked at first that is why, it has the value of 0
+
+	for i in range(len(the_list)):
+		cb = tk.Checkbutton(text="%s" % the_list[i],padx=0,pady=0,bd=0, variable= a[i])
+		text.window_create("end", window=cb)
+		text.insert("end", "\n")
+
+	root.mainloop()
+	list_returned = {}
+	b = -1 #just getting used for indexing in the loop below
+	for stuff in a:
+		b+=1
+		list_returned[the_list[b]] = stuff.get()
+	return list_returned
 
 
 
