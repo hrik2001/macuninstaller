@@ -204,6 +204,7 @@ def displayer(the_list):
 		text.window_create("end", window=cb)
 		text.insert("end", "\n")
 
+	done_button = tk.Button(root, text="Done!", command=root.destroy ).pack()
 	root.mainloop()
 	list_returned = {}
 	b = -1 #just getting used for indexing in the loop below
