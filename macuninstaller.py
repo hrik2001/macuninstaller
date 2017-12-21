@@ -25,7 +25,11 @@ for stuff in folder_list.items():
 
 
 for stuff in files_to_delete:
-    os.remove(stuff)
+    #os.remove(stuff)
+    shutil.move(stuff, "/Users/macpc/.Trash")
 
 for stuff in folders_to_delete:
-    shutil.rmtree(stuff)
+    #shutil.rmtree(stuff)
+    shutil.move(stuff, "/Users/macpc/.Trash")
+
+shutil.move(app_dir, "/Users/macpc/.Trash")
