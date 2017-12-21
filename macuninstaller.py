@@ -2,7 +2,7 @@ from function import *
 import shutil
 import os
 
-app_dir = app_name_asker("Enter the path name")
+app_dir = app_name_asker("Enter the path of the app")
 
 files , folders = thread_scanner(app_dir)
 

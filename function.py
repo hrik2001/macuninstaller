@@ -187,6 +187,7 @@ def safe_printer(the_list):
 def displayer(the_list , text):
 	root = tk.Tk()
 	root.title("macuninstaller")
+	root.protocol("WM_DELETE_WINDOW", exit)
 	tk.Label(root , text= text , font = "Helvetica 18").pack()
 	sb = tk.Scrollbar(orient="vertical")
 	text = tk.Text(root, width=40, height=20, yscrollcommand=sb.set)
@@ -219,6 +220,7 @@ def displayer(the_list , text):
 def app_name_asker(text):
 	root = tk.Tk()
 	root.title("macuninstaller")
+	root.protocol("WM_DELETE_WINDOW", exit)
 	tk.Label(root , text= text , font = "Helvetica 20").pack()
 	app_name = tk.StringVar()
 	e = tk.Entry(root, textvariable=app_name , width=40)
