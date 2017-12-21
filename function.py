@@ -6,6 +6,7 @@ import queue
 from sys import exit
 #from pprint import pprint
 import tkinter as tk
+import shutil
 
 __author__ = "Shatabarto \"Rik\" Bhattacharya "
 __version__ = 0.2
@@ -254,14 +255,20 @@ def gui_default_scanner():
 
 
     for stuff in files_to_delete:
-        #os.remove(stuff)
-        shutil.move(stuff, "/Users/macpc/.Trash")
+        os.remove(stuff)
+		#try:
+        #	shutil.move(stuff, "/Users/macpc/.Trash")
+		#except:
+		#	os.remove(stuff)
 
     for stuff in folders_to_delete:
-        #shutil.rmtree(stuff)
-        shutil.move(stuff, "/Users/macpc/.Trash")
+        shutil.rmtree(stuff)
+		#try:
+        #	shutil.move(stuff, "/Users/macpc/.Trash")
+		#except:
+		#	shutil.rmtree(stuff)
 
-    shutil.move(app_dir, "/Users/macpc/.Trash")
+    shutil.rmtree(app_dir, "/Users/macpc/.Trash")
 
 
 
