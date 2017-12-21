@@ -184,8 +184,10 @@ def safe_printer(the_list):
 			print '\xf0\x9f\xa4\xa8 '+stuff #confused face
 
 
-def displayer(the_list):
+def displayer(the_list , text):
 	root = tk.Tk()
+	root.title("macuninstaller")
+	tk.Label(root , text= text , font = "Helvetica 18").pack()
 	sb = tk.Scrollbar(orient="vertical")
 	text = tk.Text(root, width=40, height=20, yscrollcommand=sb.set)
 	sb.config(command=text.yview)
@@ -213,7 +215,16 @@ def displayer(the_list):
 		list_returned[the_list[b]] = stuff.get()
 	return list_returned
 
-
+def app_name_asker(text):
+	root = tk.Tk()
+	root.title("macuninstaller")
+	tk.Label(root , text= text , font = "Helvetica 20").pack()
+	app_name = tk.StringVar()
+	e = tk.Entry(root, textvariable=app_name , width=40)
+	e.pack()
+	done_button = tk.Button(root, text="Done!", command=root.destroy ).pack()
+	root.mainloop()
+	return app_name.get()
 
 #This is how a 16 year old codes
 #Sorry if you find this bad
