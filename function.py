@@ -207,6 +207,7 @@ def displayer(the_list , text):
 		text.insert("end", "\n")
 
 	done_button = tk.Button(root, text="Done!", command=root.destroy ).pack()
+	quit_button = tk.Button(root, text="Quit", command=exit ).pack()
 	root.mainloop()
 	list_returned = {}
 	b = -1 #just getting used for indexing in the loop below
@@ -223,6 +224,7 @@ def app_name_asker(text):
 	e = tk.Entry(root, textvariable=app_name , width=40)
 	e.pack()
 	done_button = tk.Button(root, text="Done!", command=root.destroy ).pack()
+	quit_button = tk.Button(root, text="Quit", command=exit ).pack()
 	root.mainloop()
 	return app_name.get()
 
