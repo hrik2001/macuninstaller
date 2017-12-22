@@ -277,7 +277,84 @@ def gui_default_scanner():
 		#except:
 		#	shutil.rmtree(stuff)
 
-    shutil.rmtree(app_dir, "/Users/macpc/.Trash")
+    shutil.rmtree(app_dir)
+
+def custom_path_name_asker(text , text2 , array1):
+	root = tk.Tk()
+	root.title("macuninstaller")
+	root.protocol("WM_DELETE_WINDOW", exit)
+	tk.Label(root , text= text , font = "Helvetica 20").pack()
+	app_name = tk.StringVar()
+	dir_names = tk.StringVar()
+	imp_dirs = ""
+	for stuff in array1:
+		imp_dirs += stuff + ','
+	dir_names.set(imp_dirs[0:len(imp_dirs)-1])
+	e = tk.Entry(root, textvariable=app_name , width=40)
+	e.pack()
+	tk.Label(root , text= text2 , font = "Helvetica 15").pack()
+	f = tk.Entry(root, textvariable=dir_names , width=40)
+	f.pack()
+	done_button = tk.Button(root, text="Done!", command=root.destroy ).pack()
+	quit_button = tk.Button(root, text="Quit", command=exit ).pack()
+	root.mainloop()
+	app_name = app_name.get()
+	dir_names = dir_names.get().split(',')
+	names_of_path = []
+	for paths in dir_names:
+		names_of_path.append(paths.strip())
+
+	return app_name , names_of_path
+
+def gui_custom_scanner():
+    app_dir, dir_names = app_name_asker("Enter the path of the app", "Enter the paths where you want to search, seperate the paths with commas.\nSome important paths are already listed here" , important_paths())
+
+    files , folders = thread_custom_scanner(app_dir , dir_names)
+
+    files = cleanup(files)
+    folders = cleanup(folders)
+
+    file_list = displayer(files, "Files found")
+    folder_list = displayer(folders, "Folders found")
+
+    files_to_delete = []
+    folders_to_delete = []
+
+    for stuff in file_list.items():
+        if stuff[1]:
+            files_to_delete.append(stuff[0])
+
+    for stuff in folder_list.items():
+        if stuff[1]:
+            folders_to_delete.append(stuff[0])
+
+
+    for stuff in files_to_delete:
+		try:
+			os.remove(stuff)
+		except:
+			pass
+
+
+		#try:
+        #	shutil.move(stuff, "/Users/macpc/.Trash")
+		#except:
+		#	os.remove(stuff)
+
+    for stuff in folders_to_delete:
+		try:
+			shutil.rmtree(stuff)
+		except:
+			pass
+
+		#try:
+        #	shutil.move(stuff, "/Users/macpc/.Trash")
+		#except:
+		#	shutil.rmtree(stuff)
+
+    shutil.rmtree(app_dir)
+
+
 
 
 
