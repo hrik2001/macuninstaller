@@ -1,3 +1,6 @@
 from function import *
 
-print "hi"
+if chooser():
+    gui_default_scanner()
+else:
+    gui_custom_scanner()

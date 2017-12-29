@@ -307,7 +307,7 @@ def custom_path_name_asker(text , text2 , array1):
 	return app_name , names_of_path
 
 def gui_custom_scanner():
-    app_dir, dir_names = app_name_asker("Enter the path of the app", "Enter the paths where you want to search, seperate the paths with commas.\nSome important paths are already listed here" , important_paths())
+    app_dir, dir_names = custom_path_name_asker("Enter the path of the app", "Enter the paths where you want to search, seperate the paths with commas.\nSome important paths are already listed here" , important_paths())
 
     files , folders = thread_custom_scanner(app_dir , dir_names)
 
@@ -356,7 +356,26 @@ def gui_custom_scanner():
 
 
 
+def chooser():
+	script = '''
+	set question to display dialog "Which kind of scan do you want" buttons {"Default Scan", "Custom Scan"} default button 1
+	set answer to button returned of question
 
+	if answer is equal to "Default Scan" then
+	do shell script "echo 1"
+	else
+	do shell script "echo 0"
+	end if
+
+
+	'''
+	cmd = "osascript -e"+"'"+script+"'"
+	output = os.popen(cmd).read()
+
+	if output[0]=="1":
+		return 1
+	else:
+		return 0
 
 #This is how a 16 year old codes
 #Sorry if you find this bad
