@@ -191,7 +191,7 @@ def displayer(the_list , text):
 	root.protocol("WM_DELETE_WINDOW", exit)
 	tk.Label(root , text= text , font = "Helvetica 18").pack()
 	sb = tk.Scrollbar(orient="vertical")
-	text = tk.Text(root, width=40, height=20, yscrollcommand=sb.set)
+	text = tk.Text(root, width=80, height=100, yscrollcommand=sb.set)
 	sb.config(command=text.yview)
 	sb.pack(side="right",fill="y")
 	text.pack(side="top",fill="both",expand=True)
