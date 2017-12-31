@@ -377,6 +377,68 @@ def chooser():
 	else:
 		return 0
 
+def displayer_applescript(the_list , title , prompt):
+	cmd = '''set chs to choose from list {%s} with title "%s" with prompt "%s" OK button name "Done!" cancel button name "Quit!" with multiple selections allowed
+	do shell script "echo " & chs'''
+	string_list = ""
+	for stuff in the_list:
+		string_list+="\""+stuff+" \","
+	string_list = string_list[0:len(string_list)-1]
+	cmd = cmd % (string_list , title , prompt)
+	output = os.popen("osascript -e" + "\'" + cmd + "\'").read()
+	if "false" in output:
+		return None
+	else:
+		output = output[0:len(output)-1]
+		return output.split(" ")#[0:len(output)-1]
+
+def folder_asker_applescript():
+	cmd = '''set theName to the text returned of (display dialog "Write the paths of folder and seperate them via commas" default answer "%s" with title " Custom Folders Chooser")
+	do shell script "echo " & theName'''
+	imp_paths = ""
+	for stuff in important_paths():
+		imp_paths+=stuff+","
+	cmd = cmd % imp_paths
+	output = os.popen("osascript -e" + "\'" + cmd + "\'").read()
+	output = output.split(",")
+	folders = []
+	for stuff in output:
+		folders.append(stuff.strip())
+	return folders
+
+def app_chooser_applescript():
+	cmd = '''set a to choose file with prompt "Select the app you want to uninstall" of type {"com.apple.application"} with multiple selections allowed
+	set p to POSIX path of a
+	do shell script "echo " & p'''
+	output = os.popen("osascript -e" + "\'" + cmd + "\'").read()
+	return output[0:len(output)-1]
+
+def applescript_default_scanner():
+	path_of_app = app_chooser_applescript()
+	files , folders = thread_scanner(path_of_app)
+	files = cleanup(files)
+	folders = cleanup(folders)
+	files = displayer_applescript(files , "Files Found" , "Choose the Files you want to delete")
+	folders = displayer_applescript(folders , "Folders Found" , "Choose the Folders you want to delete")
+	for stuff in files:
+		os.remove(stuff)
+	for stuff in folders:
+		shutil.rmtree(stuff)
+	shutil.rmtree(path_of_app)
+
+def applescript_custom_scanner():
+	path_of_app = app_chooser_applescript()
+	custom_folders = folder_asker_applescript()
+	files , folders = thread_custom_scanner(path_of_app , custom_folders)
+	files = cleanup(files)
+	folders = cleanup(folders)
+	files = displayer_applescript(files , "Files Found" , "Choose the Files you want to delete")
+	folders = displayer_applescript(folders , "Folders Found" , "Choose the Folders you want to delete")
+	for stuff in files:
+		os.remove(stuff)
+	for stuff in folders:
+		shutil.rmtree(stuff)
+	shutil.rmtree(path_of_app)
 #This is how a 16 year old codes
 #Sorry if you find this bad
 #
