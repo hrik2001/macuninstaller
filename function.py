@@ -36,6 +36,8 @@ def read_plist(directory):
 def find_plist(app_dir):
 	#Just adds Info.plist to the app directory
 	''' This function returns a string which points to the file location of Info.plist '''
+	if app_dir[len(app_dir)-1] == "/":
+		app_dir = app_dir[0:len(app_dir)-1]
 	if os.path.isdir(app_dir):
 		return app_dir + "/Contents/Info.plist"
 	else:
@@ -382,15 +384,15 @@ def displayer_applescript(the_list , title , prompt):
 	do shell script "echo " & chs'''
 	string_list = ""
 	for stuff in the_list:
-		string_list+="\""+stuff+" \","
+		string_list+="\""+stuff+":\","
 	string_list = string_list[0:len(string_list)-1]
 	cmd = cmd % (string_list , title , prompt)
 	output = os.popen("osascript -e" + "\'" + cmd + "\'").read()
 	if "false" in output:
-		return None
+		return []
 	else:
 		output = output[0:len(output)-1]
-		return output.split(" ")#[0:len(output)-1]
+		return output.split(":")#[0:len(output)-1]
 
 def folder_asker_applescript():
 	cmd = '''set theName to the text returned of (display dialog "Write the paths of folder and seperate them via commas" default answer "%s" with title " Custom Folders Chooser")
@@ -418,6 +420,10 @@ def applescript_default_scanner():
 	files , folders = thread_scanner(path_of_app)
 	files = cleanup(files)
 	folders = cleanup(folders)
+	#if test == "test":
+	#printer(files)
+	#printer(folders)
+	notification("Default")
 	files = displayer_applescript(files , "Files Found" , "Choose the Files you want to delete")
 	folders = displayer_applescript(folders , "Folders Found" , "Choose the Folders you want to delete")
 	for stuff in files:
@@ -425,6 +431,14 @@ def applescript_default_scanner():
 	for stuff in folders:
 		shutil.rmtree(stuff)
 	shutil.rmtree(path_of_app)
+	#if test == "test":
+	#for stuff in files:
+	#	if not os.path.isfile(stuff):
+	#		exit("Files still exists "+ stuff)
+	#for stuff in folders:
+	#	if not os.path.isdir(stuff):
+	#		exit("Folder still exists "+ stuff)
+
 
 def applescript_custom_scanner():
 	path_of_app = app_chooser_applescript()
@@ -432,6 +446,10 @@ def applescript_custom_scanner():
 	files , folders = thread_custom_scanner(path_of_app , custom_folders)
 	files = cleanup(files)
 	folders = cleanup(folders)
+	notification("Custom")
+	#if test == "test":
+	#printer(files)
+	#printer(folders)
 	files = displayer_applescript(files , "Files Found" , "Choose the Files you want to delete")
 	folders = displayer_applescript(folders , "Folders Found" , "Choose the Folders you want to delete")
 	for stuff in files:
@@ -439,6 +457,17 @@ def applescript_custom_scanner():
 	for stuff in folders:
 		shutil.rmtree(stuff)
 	shutil.rmtree(path_of_app)
+	#if test == "test":
+	#for stuff in files:
+	#	if not os.path.isfile(stuff):
+	#		exit("Files still exists "+ stuff)
+	#for stuff in folders:
+	#	if not os.path.isdir(stuff):
+			exit("Folder still exists "+ stuff)
+
+def notification(text):
+	cmd = '''display notification "Choose Files/Folders to delete" with title "macuninstaller" subtitle "%s scan complete"''' % text
+	os.popen("osascript -e "+ "\'"+cmd+"\'")
 #This is how a 16 year old codes
 #Sorry if you find this bad
 #
