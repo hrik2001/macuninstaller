@@ -5,7 +5,6 @@ from threading import Thread
 import queue
 from sys import exit
 #from pprint import pprint
-import tkinter as tk
 import shutil
 
 __author__ = "Shatabarto \"Rik\" Bhattacharya "
@@ -187,175 +186,6 @@ def safe_printer(the_list):
 			print '\xf0\x9f\xa4\xa8 '+stuff #confused face
 
 
-def displayer(the_list , text):
-	root = tk.Tk()
-	root.title("macuninstaller")
-	root.protocol("WM_DELETE_WINDOW", exit)
-	tk.Label(root , text= text , font = "Helvetica 18").pack()
-	sb = tk.Scrollbar(orient="vertical")
-	text = tk.Text(root, width=80, height=100, yscrollcommand=sb.set)
-	sb.config(command=text.yview)
-	sb.pack(side="right",fill="y")
-	text.pack(side="top",fill="both",expand=True)
-	a = [] #contains the boolean value (1/0) , whether the file has been selected or not
-
-
-	for count in range(len(the_list)):
-		a.append(tk.Variable())
-
-		a[count].set(0) #the checkbox is unticked at first that is why, it has the value of 0
-
-	for i in range(len(the_list)):
-		cb = tk.Checkbutton(text="%s" % the_list[i],padx=0,pady=0,bd=0, variable= a[i])
-		text.window_create("end", window=cb)
-		text.insert("end", "\n")
-
-	done_button = tk.Button(root, text="Done!", command=root.destroy ).pack()
-	quit_button = tk.Button(root, text="Quit", command=exit ).pack()
-	root.mainloop()
-	list_returned = {}
-	b = -1 #just getting used for indexing in the loop below
-	for stuff in a:
-		b+=1
-		list_returned[the_list[b]] = stuff.get()
-	return list_returned
-
-def app_name_asker(text):
-	root = tk.Tk()
-	root.title("macuninstaller")
-	root.protocol("WM_DELETE_WINDOW", exit)
-	tk.Label(root , text= text , font = "Helvetica 20").pack()
-	app_name = tk.StringVar()
-	e = tk.Entry(root, textvariable=app_name , width=40)
-	e.pack()
-	done_button = tk.Button(root, text="Done!", command=root.destroy ).pack()
-	quit_button = tk.Button(root, text="Quit", command=exit ).pack()
-	root.mainloop()
-	return app_name.get()
-
-def gui_default_scanner():
-    app_dir = app_name_asker("Enter the path of the app")
-
-    files , folders = thread_scanner(app_dir)
-
-    files = cleanup(files)
-    folders = cleanup(folders)
-
-    file_list = displayer(files, "Files found")
-    folder_list = displayer(folders, "Folders found")
-
-    files_to_delete = []
-    folders_to_delete = []
-
-    for stuff in file_list.items():
-        if stuff[1]:
-            files_to_delete.append(stuff[0])
-
-    for stuff in folder_list.items():
-        if stuff[1]:
-            folders_to_delete.append(stuff[0])
-
-
-    for stuff in files_to_delete:
-		try:
-			os.remove(stuff)
-		except:
-			pass
-
-
-		#try:
-        #	shutil.move(stuff, "/Users/macpc/.Trash")
-		#except:
-		#	os.remove(stuff)
-
-    for stuff in folders_to_delete:
-		try:
-			shutil.rmtree(stuff)
-		except:
-			pass
-
-		#try:
-        #	shutil.move(stuff, "/Users/macpc/.Trash")
-		#except:
-		#	shutil.rmtree(stuff)
-
-    shutil.rmtree(app_dir)
-
-def custom_path_name_asker(text , text2 , array1):
-	root = tk.Tk()
-	root.title("macuninstaller")
-	root.protocol("WM_DELETE_WINDOW", exit)
-	tk.Label(root , text= text , font = "Helvetica 20").pack()
-	app_name = tk.StringVar()
-	dir_names = tk.StringVar()
-	imp_dirs = ""
-	for stuff in array1:
-		imp_dirs += stuff + ','
-	dir_names.set(imp_dirs[0:len(imp_dirs)-1])
-	e = tk.Entry(root, textvariable=app_name , width=40)
-	e.pack()
-	tk.Label(root , text= text2 , font = "Helvetica 15").pack()
-	f = tk.Entry(root, textvariable=dir_names , width=40)
-	f.pack()
-	done_button = tk.Button(root, text="Done!", command=root.destroy ).pack()
-	quit_button = tk.Button(root, text="Quit", command=exit ).pack()
-	root.mainloop()
-	app_name = app_name.get()
-	dir_names = dir_names.get().split(',')
-	names_of_path = []
-	for paths in dir_names:
-		names_of_path.append(paths.strip())
-
-	return app_name , names_of_path
-
-def gui_custom_scanner():
-    app_dir, dir_names = custom_path_name_asker("Enter the path of the app", "Enter the paths where you want to search, seperate the paths with commas.\nSome important paths are already listed here" , important_paths())
-
-    files , folders = thread_custom_scanner(app_dir , dir_names)
-
-    files = cleanup(files)
-    folders = cleanup(folders)
-
-    file_list = displayer(files, "Files found")
-    folder_list = displayer(folders, "Folders found")
-
-    files_to_delete = []
-    folders_to_delete = []
-
-    for stuff in file_list.items():
-        if stuff[1]:
-            files_to_delete.append(stuff[0])
-
-    for stuff in folder_list.items():
-        if stuff[1]:
-            folders_to_delete.append(stuff[0])
-
-
-    for stuff in files_to_delete:
-		try:
-			os.remove(stuff)
-		except:
-			pass
-
-
-		#try:
-        #	shutil.move(stuff, "/Users/macpc/.Trash")
-		#except:
-		#	os.remove(stuff)
-
-    for stuff in folders_to_delete:
-		try:
-			shutil.rmtree(stuff)
-		except:
-			pass
-
-		#try:
-        #	shutil.move(stuff, "/Users/macpc/.Trash")
-		#except:
-		#	shutil.rmtree(stuff)
-
-    shutil.rmtree(app_dir)
-
 
 
 def chooser():
@@ -391,8 +221,9 @@ def displayer_applescript(the_list , title , prompt):
 	if "false" in output:
 		return []
 	else:
-		output = output[0:len(output)-1]
-		return output.split(":")#[0:len(output)-1]
+		#output = output[0:len(output)-1]
+		output = output.split(":")#[0:len(output)-1]
+		return output[0:len(output)-1]
 
 def folder_asker_applescript():
 	cmd = '''set theName to the text returned of (display dialog "Write the paths of folder and seperate them via commas" default answer "%s" with title " Custom Folders Chooser")
@@ -426,18 +257,36 @@ def applescript_default_scanner():
 	notification("Default")
 	files = displayer_applescript(files , "Files Found" , "Choose the Files you want to delete")
 	folders = displayer_applescript(folders , "Folders Found" , "Choose the Folders you want to delete")
+	printer(files)
+	printer(folders)
+	print "\n"*2
+	files_to_delete = " "
+	folders_to_delete = " "
+
 	for stuff in files:
-		os.remove(stuff)
+		#os.remove(stuff)
+		files_to_delete+=stuff+" "
 	for stuff in folders:
-		shutil.rmtree(stuff)
-	shutil.rmtree(path_of_app)
-	#if test == "test":
-	#for stuff in files:
-	#	if not os.path.isfile(stuff):
-	#		exit("Files still exists "+ stuff)
-	#for stuff in folders:
-	#	if not os.path.isdir(stuff):
-	#		exit("Folder still exists "+ stuff)
+	#	#shutil.rmtree(stuff)
+		folders_to_delete+=stuff+" "
+
+	#folders_to_delete += path_of_app + " "
+	cmd = "rm " + files_to_delete + " ; rm -rf " + folders_to_delete + " ;"
+	ascript = "do shell script \"%s\" with administrator privileges" % cmd
+	ascript = "osascript -e \'" + ascript + "\'"
+	ascript = os.popen(ascript)
+	ascript.close()
+
+	#shutil.rmtree(path_of_app)
+
+	#test part
+
+	for stuff in files:
+		if os.path.isfile(stuff):
+			print("Files still exists "+ stuff)
+	for stuff in folders:
+		if os.path.isdir(stuff):
+			print("Folder still exists "+ stuff)
 
 
 def applescript_custom_scanner():
@@ -452,22 +301,45 @@ def applescript_custom_scanner():
 	#printer(folders)
 	files = displayer_applescript(files , "Files Found" , "Choose the Files you want to delete")
 	folders = displayer_applescript(folders , "Folders Found" , "Choose the Folders you want to delete")
+
+
+	printer(files)
+	printer(folders)
+	print "\n"*2
+	files_to_delete = " "
+	folders_to_delete = " "
+
 	for stuff in files:
-		os.remove(stuff)
+		#os.remove(stuff)
+		files_to_delete+=stuff+" "
 	for stuff in folders:
-		shutil.rmtree(stuff)
-	shutil.rmtree(path_of_app)
-	#if test == "test":
-	#for stuff in files:
-	#	if not os.path.isfile(stuff):
-	#		exit("Files still exists "+ stuff)
-	#for stuff in folders:
-	#	if not os.path.isdir(stuff):
-			exit("Folder still exists "+ stuff)
+	#	#shutil.rmtree(stuff)
+		folders_to_delete+=stuff+" "
+
+	#folders_to_delete += path_of_app + " "
+	cmd = "rm " + files_to_delete + " ; rm -rf " + folders_to_delete + " ;"
+	ascript = "do shell script \"%s\" with administrator privileges" % cmd
+	ascript = "osascript -e \'" + ascript + "\'"
+	ascript = os.popen(ascript)
+	ascript.close()
+
+	#shutil.rmtree(path_of_app)
+
+	#test part
+
+	for stuff in files:
+		if os.path.isfile(stuff):
+			print("Files still exists "+ stuff)
+	for stuff in folders:
+		if os.path.isdir(stuff):
+			print("Folder still exists "+ stuff)
+
 
 def notification(text):
 	cmd = '''display notification "Choose Files/Folders to delete" with title "macuninstaller" subtitle "%s scan complete"''' % text
 	os.popen("osascript -e "+ "\'"+cmd+"\'")
+
+
 #This is how a 16 year old codes
 #Sorry if you find this bad
 #
