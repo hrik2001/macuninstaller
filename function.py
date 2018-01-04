@@ -8,7 +8,7 @@ from sys import exit
 import shutil
 
 __author__ = "Shatabarto \"Rik\" Bhattacharya "
-__version__ = 0.3
+__version__ = 1.0
 __doc__ = "macuninstaller "+str(__version__)+"\n"+"Copyright hrik2001 2017 Shatabarto \"Rik\" Bhattacharya.\nA command-line program to help you find those hidden files that stay here even when the apps get deleted"
 
 '''
