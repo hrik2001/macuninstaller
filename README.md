@@ -19,7 +19,13 @@ If you are using the python script then type this-</br>
 and it will output the possible files and folders that are related to the app you just specified. </br>
 You can also do a custom scan where you have to type the path of the app and the directories in which you want to search for files affiliated with the app. </br>
 `python cli.py -p /path/to/app -c /path1/ /path2/ /path3/`</br> And for the binary - </br> `macuninstaller -p /path/to/app -c /path1/ /path2/ /path3/`</br>
-For the CLI version of the script, there is a cool feature where the script suggests if the file should be deleted or not. A confused emoji appears in front of the path name to suggest that it is not recommended to delete the app, and a smiley face for the opposite. This feature is yet to be implemented in the GUI version.
+For the GUI version, just run </br>
+`python macuninstaller.py`</br>
+
+GUI
+----
+First you have to choose what kind of scan do you want to have for the app you want to uninstall </br>
+![Drag Racing](rsrcs/chooser.png)
 
 Contribution
 ------------
