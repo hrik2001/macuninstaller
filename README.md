@@ -25,13 +25,13 @@ For the GUI version, just run </br>
 GUI
 ----
 First you have to choose what kind of scan do you want to have for the app you want to uninstall </br>
-![Scan Chooser](rsrcs/chooser.png)
+![Scan Chooser](rsrcs/chooser.png)</br>
 For both of the scans you will be greeted with</br>
-![App Chooser](rsrcs/app_chooser.png)
+![App Chooser](rsrcs/app_chooser.png)</br>
 For custom scan you would be greeted with this window where it would ask you to type folder names, seperated by comma . macuninstaller will search in those folders. Suggested folders already appear in text field</br>
-![Custom Folder Chooser](rsrcs/folder_chooser.png)
+![Custom Folder Chooser](rsrcs/folder_chooser.png)</br>
 Also you will have a suggestor feature which will suggest if the file/folder should be deleted or not</br>
-![Chooser](rsrcs/file_chooser.png)
+![Chooser](rsrcs/file_chooser.png)</br>
 
 Contribution
 ------------
