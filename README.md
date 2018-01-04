@@ -22,7 +22,7 @@ You can also do a custom scan where you have to type the path of the app and the
 For the GUI version, just run </br>
 `python macuninstaller.py`</br>
 
-GUI
+UI Help
 ----
 First you have to choose what kind of scan do you want to have for the app you want to uninstall </br>
 ![Scan Chooser](rsrcs/chooser.png)</br>
@@ -30,8 +30,12 @@ For both of the scans you will be greeted with</br>
 ![App Chooser](rsrcs/app_chooser.png)</br>
 For custom scan you would be greeted with this window where it would ask you to type folder names, seperated by comma . macuninstaller will search in those folders. Suggested folders already appear in text field</br>
 ![Custom Folder Chooser](rsrcs/folder_chooser.png)</br>
-Also you will have a suggestor feature which will suggest if the file/folder should be deleted or not</br>
+Also you will have a suggestor feature which will suggest if the file/folder should be deleted or not. The confused emoji shows that it is not suggested to delete the file and the smiley face for vice versa</br>
 ![Chooser](rsrcs/file_chooser.png)</br>
+Before deleting, macuninstaller will ask for your permissions to delete. Since macuninstaller also uses applescript or osascript for GUI stuff, you would be greeted with this.</br>
+![Permissions](rsrcs/perm.png)</br>
+The CLI version is also very user friendly, here is a peek :)</br>
+![CLI](rsrcs/cli.png)</br>
 
 Contribution
 ------------
