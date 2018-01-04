@@ -211,19 +211,25 @@ def chooser():
 
 def displayer_applescript(the_list , title , prompt):
 	cmd = '''set chs to choose from list {%s} with title "%s" with prompt "%s" OK button name "Done!" cancel button name "Quit!" with multiple selections allowed
-	do shell script "echo " & chs'''
+	do shell script "echo "  & chs'''
 	string_list = ""
 	for stuff in the_list:
-		string_list+="\""+stuff+":\","
+		if checker(stuff):
+			string_list+="\"\xf0\x9f\x98\x80 "+stuff+":\","
+		else:
+			string_list+="\"\xf0\x9f\xa4\xa8 "+stuff+":\","
 	string_list = string_list[0:len(string_list)-1]
 	cmd = cmd % (string_list , title , prompt)
 	output = os.popen("osascript -e" + "\'" + cmd + "\'").read()
 	if "false" in output:
-		return []
+		exit()
 	else:
 		#output = output[0:len(output)-1]
 		output = output.split(":")#[0:len(output)-1]
-		return output[0:len(output)-1]
+		output = output[0:len(output)-1]
+		for i in range(len(output)):
+			output[i] = output[i][5:len(output[i])]
+		return output
 
 def folder_asker_applescript():
 	cmd = '''set theName to the text returned of (display dialog "Write the paths of folder and seperate them via commas" default answer "%s" with title " Custom Folders Chooser")
@@ -248,6 +254,7 @@ def app_chooser_applescript():
 
 def applescript_default_scanner():
 	path_of_app = app_chooser_applescript()
+	notification_scan_started("Default")
 	files , folders = thread_scanner(path_of_app)
 	files = cleanup(files)
 	folders = cleanup(folders)
@@ -270,7 +277,7 @@ def applescript_default_scanner():
 	#	#shutil.rmtree(stuff)
 		folders_to_delete+=stuff+" "
 
-	#folders_to_delete += path_of_app + " "
+	folders_to_delete += path_of_app + " "
 	cmd = "rm " + files_to_delete + " ; rm -rf " + folders_to_delete + " ;"
 	ascript = "do shell script \"%s\" with administrator privileges" % cmd
 	ascript = "osascript -e \'" + ascript + "\'"
@@ -292,6 +299,7 @@ def applescript_default_scanner():
 def applescript_custom_scanner():
 	path_of_app = app_chooser_applescript()
 	custom_folders = folder_asker_applescript()
+	notification_scan_started("Custom")
 	files , folders = thread_custom_scanner(path_of_app , custom_folders)
 	files = cleanup(files)
 	folders = cleanup(folders)
@@ -316,7 +324,7 @@ def applescript_custom_scanner():
 	#	#shutil.rmtree(stuff)
 		folders_to_delete+=stuff+" "
 
-	#folders_to_delete += path_of_app + " "
+	folders_to_delete += path_of_app + " "
 	cmd = "rm " + files_to_delete + " ; rm -rf " + folders_to_delete + " ;"
 	ascript = "do shell script \"%s\" with administrator privileges" % cmd
 	ascript = "osascript -e \'" + ascript + "\'"
@@ -338,6 +346,12 @@ def applescript_custom_scanner():
 def notification(text):
 	cmd = '''display notification "Choose Files/Folders to delete" with title "macuninstaller" subtitle "%s scan complete"''' % text
 	os.popen("osascript -e "+ "\'"+cmd+"\'")
+
+
+def notification_scan_started(text):
+	cmd = '''display notification "This will take time" with title "macuninstaller" subtitle "%s scan started"''' % text
+	os.popen("osascript -e "+ "\'"+cmd+"\'")
+
 
 
 #This is how a 16 year old codes
