@@ -2,7 +2,7 @@ import os
 import plistlib
 from subprocess import *
 from threading import Thread
-import queue
+import Queue as queue
 from sys import exit
 #from pprint import pprint
 import shutil
