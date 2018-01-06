@@ -2,10 +2,14 @@ import os
 import plistlib
 from subprocess import *
 from threading import Thread
-import queue
-from sys import exit
+from sys import exit 
 #from pprint import pprint
-import shutil
+
+
+try:
+	import queue
+except ImportError:
+	import Queue as queue
 
 __author__ = "Rik \"Rik\" Bhattacharya "
 __version__ = 1.0
@@ -147,7 +151,7 @@ def thread_custom_scanner(path_to_app , custom_paths):
 def printer(the_list):
 	#old version used this function
 	for things in the_list:
-		print things
+		print(things)
 
 def cleanup(the_list):
 	#sometimes the file_list and the folder_list will contain the same files or folders (because of the loop)
@@ -181,9 +185,9 @@ def safe_printer(the_list):
 	#prints with emojis for the user
 	for stuff in the_list:
 		if checker(stuff):
-			print '\xf0\x9f\x98\x80 '+stuff #smiley face
+			print('\xf0\x9f\x98\x80 '+stuff) #smiley face
 		else:
-			print '\xf0\x9f\xa4\xa8 '+stuff #confused face
+			print('\xf0\x9f\xa4\xa8 '+stuff) #confused face
 
 
 
@@ -210,7 +214,7 @@ def chooser():
 		return 0
 
 def displayer_applescript(the_list , title , prompt):
-	cmd = '''set chs to choose from list {%s} with title "%s" with prompt "%s" OK button name "Done!" cancel button name "Quit!" with multiple selections allowed
+	cmd = '''set chs to choose from list {%s} with title "%s" with prompt "%s" OK button name "Done!" cancel button name "Choose None" with multiple selections allowed
 	do shell script "echo "  & chs'''
 	string_list = ""
 	for stuff in the_list:
@@ -222,7 +226,7 @@ def displayer_applescript(the_list , title , prompt):
 	cmd = cmd % (string_list , title , prompt)
 	output = os.popen("osascript -e" + "\'" + cmd + "\'").read()
 	if "false" in output:
-		exit()
+		return []
 	else:
 		#output = output[0:len(output)-1]
 		output = output.split(":")#[0:len(output)-1]
@@ -266,15 +270,12 @@ def applescript_default_scanner():
 	folders = displayer_applescript(folders , "Folders Found" , "Choose the Folders you want to delete")
 	printer(files)
 	printer(folders)
-	print "\n"*2
 	files_to_delete = " "
 	folders_to_delete = " "
 
 	for stuff in files:
-		#os.remove(stuff)
 		files_to_delete+=stuff+" "
 	for stuff in folders:
-	#	#shutil.rmtree(stuff)
 		folders_to_delete+=stuff+" "
 
 	folders_to_delete += path_of_app + " "
@@ -284,7 +285,7 @@ def applescript_default_scanner():
 	ascript = os.popen(ascript)
 	ascript.close()
 
-	#shutil.rmtree(path_of_app)
+
 
 	#test part
 
@@ -313,7 +314,7 @@ def applescript_custom_scanner():
 
 	printer(files)
 	printer(folders)
-	print "\n"*2
+
 	files_to_delete = " "
 	folders_to_delete = " "
 
@@ -321,7 +322,7 @@ def applescript_custom_scanner():
 		#os.remove(stuff)
 		files_to_delete+=stuff+" "
 	for stuff in folders:
-	#	#shutil.rmtree(stuff)
+
 		folders_to_delete+=stuff+" "
 
 	folders_to_delete += path_of_app + " "
@@ -331,7 +332,7 @@ def applescript_custom_scanner():
 	ascript = os.popen(ascript)
 	ascript.close()
 
-	#shutil.rmtree(path_of_app)
+
 
 	#test part
 
