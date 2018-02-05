@@ -1,6 +1,6 @@
 macuninstaller
 -------------
-macuninstaller is a python script that was written to uninstall mac apps. This script finds all the related files and folders and deletes them for you. You can use both the GUI version and CLI version of macuninstaller. (The CLI version doesn't delete files since there is a high chance of deleting files by mistake)
+macuninstaller is a python script that was written to uninstall mac apps. This script finds all the related files and folders and deletes them for you. You can use both the GUI version and CLI version of macuninstaller.
 
 Download
 -----
