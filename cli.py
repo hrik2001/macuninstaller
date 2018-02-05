@@ -2,7 +2,7 @@ from function import *
 from argparse import ArgumentParser
 from function import __doc__ as doc
 from sys import version_info , exit
-from os import popen , exit
+from os import popen
 if version_info[0] > 2:
 	exit("Only Python2.7 is supported")
 
