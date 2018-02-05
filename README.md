@@ -36,6 +36,7 @@ Before deleting, macuninstaller will ask for your permissions to delete. Since m
 ![Permissions](rsrcs/perm.png)</br>
 The CLI version is also very user friendly, here is a peek :)</br>
 ![CLI](rsrcs/cli.png)</br>
+The CLI version lets you choose the files and folders by using up and down arrow keys, if you want to select/deselect files/folders you can do so with space, if you want to quit the program then press "q"
 
 Contribution
 ------------
