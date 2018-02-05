@@ -353,6 +353,7 @@ def notification_scan_started(text):
 	cmd = '''display notification "This will take time" with title "macuninstaller" subtitle "%s scan started"''' % text
 	os.popen("osascript -e "+ "\'"+cmd+"\'")
 
+
 def selector(a , stri):
 	wah = []
 	stdscr = initscr()
@@ -455,16 +456,20 @@ def selector(a , stri):
 		return cleaned_list
 
 
-	def adder(arrr , r):
+	def adder(arrr , r, wah):
 		count = 0
 		printer("\n")
 		for stuff in arrr:
 			if ( stuff != "\n" ) and (stuff != "\n\n" ):
 				if count == r :
-					wah.append(stuff)
+					if stuff not in wah:
+						wah.append(stuff)
+					else:
+						wah.remove(stuff)
 					count += 1
 				else:
 					count += 1
+		return wah
 	ar_len = length(arr)
 	highlighter(arr , vir_cur, wah)
 
@@ -506,7 +511,7 @@ def selector(a , stri):
 			else:
 				highlighter(arr , vir_cur, wah)
 		elif key == ord(" "):
-			adder(arr , vir_cur)
+			wah = adder(arr , vir_cur, wah)
 			stdscr.move(0,0)
 			stdscr.clear()
 			highlighter(arr , vir_cur, wah)
@@ -522,7 +527,6 @@ def selector(a , stri):
 
 	wah = cleanup(wah)
 	return wah
-
 
 
 

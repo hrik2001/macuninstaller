@@ -30,6 +30,7 @@ if not args.custom:
 		files_to_delete += " \"" + path + "\" "
 	for path in chosen_folders:
 		folders_to_delete += " \"" + path + "\" "
+	print("Enter your password to delete everything you chose")
 	cmd = "sudo rm " + files_to_delete + " ; sudo rm -rf " + folders_to_delete + " ;"
 	a = popen(cmd)
 	print a.read()
@@ -40,6 +41,7 @@ if not args.custom:
 	for stuff in chosen_folders:
 		if os.path.isdir(stuff):
 			print("Folder still exists "+ stuff)
+	print("Have a good day!")
 else:
 	print(doc)
 	print("\n")
@@ -57,6 +59,8 @@ else:
 		files_to_delete +=  " \"" + path + "\" "
 	for path in chosen_folders:
 		folders_to_delete +=  " \"" + path + "\" "
+
+	print("Enter your password to delete everything you chose")
 	cmd = "sudo rm " + files_to_delete + " ; sudo rm -rf " + folders_to_delete + " ;"
 	a = popen(cmd)
 	print a.read()
@@ -67,3 +71,4 @@ else:
 	for stuff in chosen_folders:
 		if os.path.isdir(stuff):
 			print("Folder still exists "+ stuff)
+	print("Have a good day!")
