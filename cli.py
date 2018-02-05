@@ -2,7 +2,7 @@ from function import *
 from argparse import ArgumentParser
 from function import __doc__ as doc
 from sys import version_info , exit
-from os import popen
+from os import popen , exit
 if version_info[0] > 2:
 	exit("Only Python2.7 is supported")
 
@@ -22,7 +22,11 @@ if not args.custom:
 	files = cleanup(files)
 	folders = cleanup(folders)
 	chosen_files = selector(files, "Files")
+	if chosen_files == 0:
+		exit()
 	chosen_folders = selector(folders, "Folders")
+	if chosen_folders == 0:
+		exit()
 	files_to_delete = " "
 	folders_to_delete = " " + args.path + " "
 
@@ -51,7 +55,11 @@ else:
 	files = cleanup(files)
 	folders = cleanup(folders)
 	chosen_files = selector(files, "Files")
+	if chosen_files == 0:
+		exit()
 	chosen_folders = selector(folders, "Folders")
+	if chosen_folders == 0:
+		exit()
 	files_to_delete = " "
 	folders_to_delete = " " + args.path + " "
 
