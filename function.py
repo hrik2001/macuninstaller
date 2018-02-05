@@ -4,7 +4,7 @@ from subprocess import *
 from threading import Thread
 from sys import exit 
 #from pprint import pprint
-
+from curses import *
 
 try:
 	import queue
@@ -352,6 +352,177 @@ def notification(text):
 def notification_scan_started(text):
 	cmd = '''display notification "This will take time" with title "macuninstaller" subtitle "%s scan started"''' % text
 	os.popen("osascript -e "+ "\'"+cmd+"\'")
+
+def selector(a , stri):
+	wah = []
+	stdscr = initscr()
+	stdscr.move(0,0)
+	stdscr.keypad(True)
+	noecho()
+	printer = stdscr.addstr
+	curs_set(0)
+
+	max_row , max_cols = stdscr.getmaxyx()
+	limit = max_row - 7
+
+	def line_calc(string):
+		div = len(string)/max_cols
+		if len(string)%max_cols :
+			div+=1
+		return div
+
+	printer = stdscr.addstr
+
+	def mov_up(array,d_l):
+		count = 0
+		i = d_l
+		output = ["\n"]
+		while 1:
+			count+=1
+			count+= line_calc(array[i])
+			if count > limit :
+				break
+			if (i) == (len(array) - 1):
+				break
+			i+=1
+		u_l = i
+		
+		while d_l != (u_l + 1) :
+			output.append(array[d_l])
+			output.append("\n\n")
+			d_l += 1
+
+		return i , output
+
+	def mov_down(array, d_l):
+		count = 0
+		i = d_l
+		output = ["\n"]
+		while 1:
+			count+=1
+			count+= line_calc(array[i])
+			if count > limit :
+				break
+			if (i) == 0:
+				break
+			i-=1
+		u_l = i
+		while u_l != (d_l + 1) :
+			output.append(array[u_l])
+			output.append("\n\n")
+			u_l += 1
+
+		return i , output
+
+	up_l = 0 
+	low_l, arr = mov_up(a , 0)
+	vir_cur = 0
+
+
+	def length(arrr):
+		r = []
+		for stuff in arrr:
+			if ( stuff != "\n" ) and (stuff != "\n\n" ):
+				r.append(stuff)
+		return len(r)
+
+	def highlighter(arrr , r , wah):
+		count = 0
+		printer("\n")
+		for stuff in arrr:
+			if ( stuff != "\n" ) and (stuff != "\n\n" ):
+				if count == r :
+					printer(stuff , A_REVERSE)
+					printer("\n\n")
+					count += 1
+				else:
+					if stuff in wah:
+						printer(stuff , A_UNDERLINE)
+						printer("\n\n")
+					else:
+						printer(stuff)
+						printer("\n\n")
+					count += 1
+
+		printer(max_row - 2 , 25 , "macuninstaller | " + stri)
+		printer(max_row -1 , 14 , "Space to select, q to quit and enter to proceed")
+
+	def cleanup(the_list):
+		cleaned_list = []
+		for elements in the_list:
+			if elements not in cleaned_list:
+				cleaned_list.append(elements)
+		return cleaned_list
+
+
+	def adder(arrr , r):
+		count = 0
+		printer("\n")
+		for stuff in arrr:
+			if ( stuff != "\n" ) and (stuff != "\n\n" ):
+				if count == r :
+					wah.append(stuff)
+					count += 1
+				else:
+					count += 1
+	ar_len = length(arr)
+	highlighter(arr , vir_cur, wah)
+
+	while 1:
+		key = stdscr.getch()
+		stdscr.clear()
+		stdscr.move(0,0)
+		if key == 113: #q
+			stdscr.refresh()
+			endwin()
+			return 0
+		elif key == KEY_DOWN:
+			vir_cur += 1
+			if vir_cur == ar_len:
+				if low_l != len(a) - 1:
+					low_l += 1
+					up_l , arr = mov_down(a , low_l)
+					ar_len = length(arr)
+					vir_cur = ar_len - 1
+					highlighter(arr , vir_cur, wah)
+				else:
+					vir_cur -= 1
+					highlighter(arr , vir_cur, wah)
+			else:
+				highlighter(arr , vir_cur, wah)
+
+		elif key == KEY_UP:
+			vir_cur -= 1
+			if vir_cur == -1 :
+				if up_l != 0:
+					up_l -= 1
+					low_l , arr = mov_up(a , up_l)
+					ar_len = length(arr)
+					vir_cur = 0
+					highlighter(arr , vir_cur, wah)
+				else:
+					vir_cur += 1
+					highlighter(arr , vir_cur, wah)
+			else:
+				highlighter(arr , vir_cur, wah)
+		elif key == ord(" "):
+			adder(arr , vir_cur)
+			stdscr.move(0,0)
+			stdscr.clear()
+			highlighter(arr , vir_cur, wah)
+		elif key == ord("\n"):
+			break
+		else:
+			stdscr.move(0,0)
+			stdscr.clear()
+			highlighter(arr , vir_cur, wah)
+
+	stdscr.refresh()
+	endwin()
+
+	wah = cleanup(wah)
+	return wah
+
 
 
 
