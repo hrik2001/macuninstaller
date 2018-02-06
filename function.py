@@ -395,6 +395,11 @@ def selector(a , stri):
 
 		return i , output
 
+	def mid_printer(string , a = stdscr.getyx()[0]):
+		printer(a , (max_cols - len(string))/2 , string)
+
+
+
 	def mov_down(array, d_l):
 		count = 0
 		i = d_l
@@ -445,8 +450,8 @@ def selector(a , stri):
 						printer("\n\n")
 					count += 1
 
-		printer(max_row - 2 , 25 , "macuninstaller | " + stri)
-		printer(max_row -1 , 14 , "Space to select, q to quit and enter to proceed")
+		mid_printer("macuninstaller | " + stri , max_row - 2)
+		mid_printer("Space to select, q to quit and enter to proceed" , max_row - 1)
 
 	def cleanup(the_list):
 		cleaned_list = []
