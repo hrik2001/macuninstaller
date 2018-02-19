@@ -12,7 +12,7 @@ except ImportError:
 	import Queue as queue
 
 __author__ = "Rik \"Rik\" Bhattacharya "
-__version__ = 2.0
+__version__ = 2.1
 __doc__ = "macuninstaller "+str(__version__)+"\n"+"Copyright hrik2001 2017 Rik \"Rik\" Bhattacharya.\nA command-line program to help you find those hidden files that stay here even when the apps get deleted"
 
 '''
@@ -397,6 +397,20 @@ def selector(a , stri):
 
 	def mid_printer(string , a = stdscr.getyx()[0]):
 		printer(a , (max_cols - len(string))/2 , string)
+
+	#precaution when a==[]
+	if a == []:
+		mid_printer("No "+stri+" found" , 0)
+		mid_printer("Press Enter to proceed or q to quit", 1)
+		key = stdscr.getch()
+		if key == 113:
+			stdscr.refresh()
+			endwin()
+			return 0
+		elif key == ord("\n"):
+			stdscr.refresh()
+			endwin()
+			return []
 
 
 
