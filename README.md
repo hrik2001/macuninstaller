@@ -6,7 +6,7 @@ macuninstaller is a python script that was written to uninstall mac apps. This s
 Download
 -----
 You can checkout the latest releases and can even download the binary from there</br> `https://github.com/hrik2001/macuninstaller/releases/`</br>
-And move it the binary to this path so that you can directly use it as a command in your terminal :)-</br>
+And move the binary to this path so that you can directly use it as a command in your terminal :)-</br>
 `/usr/local/bin/`</br>
 </br>
 
@@ -25,6 +25,10 @@ For the GUI version, just run </br>
 
 UI Help
 ----
+The CLI version is very user friendly, here is a peek :)</br>
+![CLI](rsrcs/cli.png)</br>
+The CLI version lets you choose the files and folders by using up and down arrow keys, if you want to select/deselect files/folders you can do so with space, if you want to quit the program then press "q". After that you will be asked to type your password and with a breeze your app will be uninstalled.</br>
+**The GUI VERSION IS NOT SUPPORTED**, but still, here is the look of the UI</br>
 First you have to choose what kind of scan do you want to have for the app you want to uninstall </br>
 ![Scan Chooser](rsrcs/chooser.png)</br>
 For both of the scans you will be greeted with</br>
@@ -35,9 +39,7 @@ Also you will have a suggestor feature which will suggest if the file/folder sho
 ![Chooser](rsrcs/file_chooser.png)</br>
 Before deleting, macuninstaller will ask for your permissions to delete. Since macuninstaller also uses applescript or osascript for GUI stuff, you would be greeted with this.</br>
 ![Permissions](rsrcs/perm.png)</br>
-The CLI version is also very user friendly, here is a peek :)</br>
-![CLI](rsrcs/cli.png)</br>
-The CLI version lets you choose the files and folders by using up and down arrow keys, if you want to select/deselect files/folders you can do so with space, if you want to quit the program then press "q"
+
 
 Contribution
 ------------
