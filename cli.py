@@ -28,13 +28,13 @@ if not args.custom:
 	if chosen_folders == 0:
 		exit()
 	files_to_delete = " "
-	folders_to_delete = " " + args.path + " "
+	folders_to_delete = " \"" + args.path + "\" "
 
 	for path in chosen_files:
 		files_to_delete += " \"" + path + "\" "
 	for path in chosen_folders:
 		folders_to_delete += " \"" + path + "\" "
-	#print("Enter your password to delete everything you chose")
+	print("Enter your password to delete everything you chose")
 	cmd = "sudo rm " + files_to_delete + " ; sudo rm -rf " + folders_to_delete + " ;"
 	a = popen(cmd)
 	print a.read()
@@ -61,14 +61,14 @@ else:
 	if chosen_folders == 0:
 		exit()
 	files_to_delete = " "
-	folders_to_delete = " " + args.path + " "
+	folders_to_delete = " \"" + args.path + "\" "
 
 	for path in chosen_files:
 		files_to_delete +=  " \"" + path + "\" "
 	for path in chosen_folders:
 		folders_to_delete +=  " \"" + path + "\" "
 
-	#print("Enter your password to delete everything you chose")
+	print("Enter your password to delete everything you chose")
 	cmd = "sudo rm " + files_to_delete + " ; sudo rm -rf " + folders_to_delete + " ;"
 	a = popen(cmd)
 	print a.read()
