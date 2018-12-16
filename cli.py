@@ -13,6 +13,15 @@ parser.add_argument("-c", "--custom-path", nargs = '*',dest = "custom" , help = 
 args = parser.parse_args()
 #####################################################
 
+####Modify args.path#######
+if args.path[0]!="/":
+	if args.path[0] == "~":
+		args.path = os.getenv("HOME") + a[1:len(a)]
+	else:
+		args.path = os.getcwd() + "/" + args.path
+
+
+
 if not args.custom:
 	print(doc)
 	print("\n")
