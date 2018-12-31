@@ -1,7 +1,6 @@
 macuninstaller
 -------------
 macuninstaller is a python script that was written to uninstall mac apps. This script finds all the related files and folders and deletes them for you. You can use both the GUI version and CLI version of macuninstaller.</br>
-**MACUNINSTALLER GUI IS NOT SUPPORTED**. It does not delete folders/files which contain space. :( The whole GUI port was written with the help of applescript (which is not very efficient of course). Its preferable to use the CLI version.
 
 Download
 -----
@@ -28,7 +27,7 @@ UI Help
 The CLI version is very user friendly, here is a peek :)</br>
 ![CLI](rsrcs/cli.png)</br>
 The CLI version lets you choose the files and folders by using up and down arrow keys, if you want to select/deselect files/folders you can do so with space, if you want to quit the program then press "q". After that you will be asked to type your password and with a breeze your app will be uninstalled.</br>
-**The GUI VERSION IS NOT SUPPORTED**, but still, here is the look of the UI</br>
+Here is the look of the GUI</br>**NOTE: YOU HAVE TO RUN THE SCRIPT IN SUDO**</br>
 First you have to choose what kind of scan do you want to have for the app you want to uninstall </br>
 ![Scan Chooser](rsrcs/chooser.png)</br>
 For both of the scans you will be greeted with</br>
@@ -37,8 +36,7 @@ For custom scan you would be greeted with this window where it would ask you to 
 ![Custom Folder Chooser](rsrcs/folder_chooser.png)</br>
 Also you will have a suggestor feature which will suggest if the file/folder should be deleted or not. The confused emoji shows that it is not suggested to delete the file and the smiley face for vice versa</br>
 ![Chooser](rsrcs/file_chooser.png)</br>
-Before deleting, macuninstaller will ask for your permissions to delete. Since macuninstaller also uses applescript or osascript for GUI stuff, you would be greeted with this.</br>
-![Permissions](rsrcs/perm.png)</br>
+
 
 
 Contribution
