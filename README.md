@@ -4,7 +4,7 @@ macuninstaller is a python script that was written to uninstall mac apps. This s
 
 Download
 -----
-You can checkout the latest releases and can even download the binary from there</br> `https://github.com/hrik2001/macuninstaller/releases/`</br>
+**MACUNINSTALLER EXISTS AS BOTH APP AND BINARY FILE, SO GET WHAT PLEASES YOU FROM RELEASES**</br>You can checkout the latest releases and can even download the binary from there</br> `https://github.com/hrik2001/macuninstaller/releases/`</br>
 And move the binary to this path so that you can directly use it as a command in your terminal :)-</br>
 `/usr/local/bin/`</br>
 </br>
