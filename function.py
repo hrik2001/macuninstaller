@@ -13,7 +13,7 @@ except ImportError:
 
 __author__ = "Shatabarto \"Rik\" Bhattacharya "
 __version__ = 2.1
-__doc__ = "macuninstaller "+str(__version__)+"\n"+"Copyright hrik2001 2017 Shatabarto \"Rik\" Bhattacharya.\nA command-line program to help you find those hidden files that stay here even when the apps get deleted"
+__doc__ = "macuninstaller "+str(__version__)+"\n"+"Copyright hrik2001 2019 Shatabarto \"Rik\" Bhattacharya.\nA command-line program to help you find those hidden files that stay here even when the apps get deleted"
 
 '''
 Contains useful functions for the uninstallation process
@@ -274,17 +274,15 @@ def applescript_default_scanner():
 	folders_to_delete = " "
 
 	for stuff in files:
-		files_to_delete+=stuff+" "
+		files_to_delete+="\""+stuff+"\" "
 	for stuff in folders:
-		folders_to_delete+=stuff+" "
+		folders_to_delete+="\""+stuff+"\" "
 
-	folders_to_delete += path_of_app + " "
+	folders_to_delete += "\"" + path_of_app + "\" "
 	cmd = "rm " + files_to_delete + " ; rm -rf " + folders_to_delete + " ;"
-	ascript = "do shell script \"%s\" with administrator privileges" % cmd
-	ascript = "osascript -e \'" + ascript + "\'"
-	ascript = os.popen(ascript)
-	ascript.close()
-
+	a = os.popen(cmd)
+	print a.read()
+	a.close()
 
 
 	#test part
@@ -319,18 +317,15 @@ def applescript_custom_scanner():
 	folders_to_delete = " "
 
 	for stuff in files:
-		#os.remove(stuff)
-		files_to_delete+=stuff+" "
+		files_to_delete+="\""+stuff+"\" "
 	for stuff in folders:
+		folders_to_delete+="\""+stuff+"\" "
 
-		folders_to_delete+=stuff+" "
-
-	folders_to_delete += path_of_app + " "
+	folders_to_delete += "\"" + path_of_app + "\" "
 	cmd = "rm " + files_to_delete + " ; rm -rf " + folders_to_delete + " ;"
-	ascript = "do shell script \"%s\" with administrator privileges" % cmd
-	ascript = "osascript -e \'" + ascript + "\'"
-	ascript = os.popen(ascript)
-	ascript.close()
+	a = os.popen(cmd)
+	print a.read()
+	a.close()
 
 
 
