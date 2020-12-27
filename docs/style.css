@@ -1,39 +1,98 @@
-@font-face{
-font-family: 'ost';
-src: url('fonts/ostrich-regular.ttf');
+main {
+  font-family: monospace, monospace;
+  max-width: 38rem;
+  padding: 2rem;
+  margin: auto;
+  border-style: solid;
+  border-color: #fbf1c7;
+  background-color:#3c3836; 
+}
+@media only screen and (max-device-width: 736px) {
+  main {
+      padding: 0rem;
+ }
 }
 body {
-font-family: Segoe UI, Arial;
-position: absolute;
-top: 0;
-left: 0;
-background-color: #ededed;
-color: #282828;
-margin: 100;
-padding: 0;
+  background-color:#1d2021;
+  color: #ebdbb2;
 }
-h1, h2, h3, h4, #flag{
-color: #e84f4f;
+pre {
+  background-color: #3c3836;
+  padding: 1em;
+  border: 0;
 }
-code, a{
-background-color: #dddddd;
-transition: 0.5s;
+a {
+ color:#fbf1c7;
 }
-button{
-border: 0;
-outline: 0;
--webkit-appearance: none;
--moz-appearance: none;
-box-sizing: border-box;
-padding: 12px;
-transition: 0.5s;
-border-radius: 2px;
-background-color: #dedede;
-color: inherit;
+a:visited {
+ color:#fbf1c7;
 }
-
-button:hover, code:hover{
-  color: #e84f4f;
+a:hover {
+ color:#fbf1c7;
 }
-
-#flag{font-size: 2rem;}
+a:active {
+ color:#fbf1c7;
+}
+a{
+ text-decoration:none;
+}
+h1, h2, h3, h4, h5 {
+  margin-bottom: .1rem;
+}
+blockquote {
+  border-left: 1px solid #bdae93;
+  margin: 0.5em 10px;
+  padding: 0.5em 10px;
+}
+@media (prefers-color-scheme: light) {
+  body {
+      background: #fbf1c7;
+      color: #3c3836;
+ }
+  pre {
+      background-color: #ebdbb2;
+      padding: 1em;
+      border: 0;
+ }
+  a {
+     color:#fbf1c7;
+ }
+  a:visited {
+     color:#fbf1c7;
+ }
+  a:hover {
+     color:#fbf1c7;
+ }
+  a:active {
+     color:#fbf1c7;
+ }
+  h1, h2, h3, h4, h5 {
+      margin-bottom: .1rem;
+ }
+  blockquote {
+      border-left: 1px solid #655c54;
+      margin: 0.5em 10px;
+      padding: 0.5em 10px;
+ }
+}
+span {
+  background-color: #98971a;
+  border: none;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  color: #f9f5d7;
+}
+.note {
+  color:#b16286;
+  font-size: 14px;
+}
+.pycode {
+  color: orange;
+}
+.flag {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 30px;
+  color: #fb4934 
+}

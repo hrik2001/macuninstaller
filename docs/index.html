@@ -1,34 +1,40 @@
+<!DOCTYPE html>
 <html>
-	<head>
-		<title>Mac Uninstaller</title>
-		<link rel=StyleSheet href="style.css">
-	</head>
-	<body onload="getyear()">
-		<div class="main">
-			<h1>MacUninstaller</h1>
-			<p>MacUninstaller helps you completely remove a program from your macos system by showing you which files might be related to it.</p>	
-			
-			<h2>Download</h2>
-			<h3>Executable</h3>
-			<button onclick="redirect('https://github.com/hrik2001/macuninstaller/releases')">Download the executable (latest)</button>
-			<p>Then, move it to <code> usr/local/bin/ </code></p>
-			<h3>Use the source code</h3>
-			<p>Just do: <code>git clone https://github.com/hrik2001/macuninstaller</code></p>
-			<h2>Usage</h2>
-			<p>When using the python script, just type <code>python cli.py -p /path/to/app</code></p>
-			<p>Or this if you are using using the binary distribution <code>macuninstaller -p /path/to/app</code></p>
-			<p>Either of these options will output the possible files and folders related to the app.</p>
-			<h3>Flags</h3>
-			<span id='flag'>-p</span> <span>	Put the path to the app after this</span><br>
-			<span id='flag'>-c</span> <span>	Put the specific paths you want to search after this</span>
-		</div>
-		<script>
-			function redirect(link){
-				window.location = link;
-			}
-			function getyear() {
-    			document.getElementById("year").innerHTML = String(new Date().getFullYear() + 1);
-    		}
-		</script>
-	</body>
+
+<head>
+    <title>macuninstaller</title>
+    <link type="text/css" rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body class="snow" id="top">
+    <main>
+
+        <h1>$ macuninstaller_</h1>
+        <p>MacUninstaller helps you completely remove a program from your macOS system by showing you which files might be related to it.</p>
+        <br>
+        <hr>
+        <h2>Download:</h2>
+        <blockquote>1. Download the exectuable: <span id="redirect"> <a href="https://github.com/hrik2001/macuninstaller/releases"> Download (latest)</a></span>
+            
+        </blockquote>
+        <ul>
+            <li class="note">Please note that, after downloading the exectuable move the exectuable where you install software locally <i class="e">/usr/local/bin</i></li>
+        </ul>
+        <br>
+        <blockquote>2. Clone the Source Code like a chad: <br><br> <span>$ git clone https://github.com/hrik2001/macuninstaller</span>
+        </blockquote>
+        <br>
+        <hr>
+        <h2>Usage: </h2>
+        <p>
+            → When using the python script, just type: <br> <code class="pycode"> $ python cli.py -p /path/to/app</code> <br><br> → While using using the binary distribution: <br><code class="pycode">$ macuninstaller -p /path/to/app</code> <br><br> Either of these options will output the possible files and folders related to the app. <br><br>
+        </p>
+        <hr>
+        <h2>Flags: </h2>
+        <code class="flag">-p</code> Mention The File Path
+        <br>
+        <code class="flag">-c</code> Put the specific paths you want to search after this
+    </main>
+</body>
+
 </html>
